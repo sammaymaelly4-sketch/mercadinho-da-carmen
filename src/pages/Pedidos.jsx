@@ -18,10 +18,10 @@ export function Pedidos() {
 
         <div style={{ padding: '20px 16px' }}>
           {[
-            { icon: '✓',  label: 'Pedido confirmado', sub: '14:32 · Pix aprovado',       done: true,  active: false },
-            { icon: '✓',  label: 'Preparando',         sub: '14:33 · Carmen separou',     done: true,  active: false },
-            { icon: '🛵', label: 'A caminho',           sub: '14:38 · saiu para entrega',  done: false, active: true  },
-            { icon: '🏠', label: 'Entregue',            sub: 'previsão: 14:56',            done: false, active: false },
+            { icon: '✓',  label: 'Pedido confirmado', sub: 'A Carmen já tá separando tudo com carinho. 🧺', done: true,  active: false },
+            { icon: '✓',  label: 'Preparando',         sub: 'Quase pronto! A Carmen tá embalando seu pedido.', done: true,  active: false },
+            { icon: '🛵', label: 'A caminho!',          sub: 'Saiu! O entregador da Carmen tá voando até você. 🛵', done: false, active: true  },
+            { icon: '🏠', label: 'Entregue',            sub: 'Chegou! Bom proveito da Carmen pra você. 🧡', done: false, active: false },
           ].map((s, i, arr) => (
             <div key={i} className="animate-fade-in" style={{ animationDelay: `${i * 0.1}s` }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>

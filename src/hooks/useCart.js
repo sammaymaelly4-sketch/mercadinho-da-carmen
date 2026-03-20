@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from 'react'
-import { getPorId } from '../lib/catalog'
+import { getPorId, getAdegazDiscount } from '../lib/catalog'
 
 export function useCart() {
   const [items, setItems] = useState({})
@@ -29,23 +29,33 @@ export function useCart() {
     [items]
   )
 
-  const totalPrice = useMemo(
-    () => Object.entries(items).reduce((acc, [id, qty]) => {
-      const p = getPorId(id)
-      return acc + (p ? p.preco * qty : 0)
-    }, 0),
+  // cartItems inclui desconto por unidade para produtos da Adega
+  const cartItems = useMemo(
+    () => Object.entries(items)
+      .map(([id, qty]) => {
+        const produto = getPorId(id)
+        if (!produto) return null
+        const discount = produto.adega ? getAdegazDiscount(qty) : 0
+        const precoUnitario = produto.preco * (1 - discount)
+        return { produto, qty, discount, precoUnitario }
+      })
+      .filter(Boolean),
     [items]
   )
 
-  const cartItems = useMemo(
-    () => Object.entries(items)
-      .map(([id, qty]) => ({ produto: getPorId(id), qty }))
-      .filter(i => i.produto),
-    [items]
+  const totalPrice = useMemo(
+    () => cartItems.reduce((acc, { precoUnitario, qty }) => acc + precoUnitario * qty, 0),
+    [cartItems]
+  )
+
+  const totalDesconto = useMemo(
+    () => cartItems.reduce((acc, { produto, qty, discount }) =>
+      acc + produto.preco * qty * discount, 0),
+    [cartItems]
   )
 
   return useMemo(
-    () => ({ items, add, remove, set, clear, totalQty, totalPrice, cartItems }),
-    [items, add, remove, set, clear, totalQty, totalPrice, cartItems]
+    () => ({ items, add, remove, set, clear, totalQty, totalPrice, totalDesconto, cartItems }),
+    [items, add, remove, set, clear, totalQty, totalPrice, totalDesconto, cartItems]
   )
 }

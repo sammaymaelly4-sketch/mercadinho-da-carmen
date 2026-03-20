@@ -4,6 +4,7 @@ export const CATEGORIAS = {
   higiene: { id:'higiene', nome:'Higiene',  emoji:'🧴', cor:'#66BB6A', bg:'linear-gradient(135deg,#F1F8E9,#C8E6C9)' },
   limpeza: { id:'limpeza', nome:'Limpeza',  emoji:'🧹', cor:'#42A5F5', bg:'linear-gradient(135deg,#E3F2FD,#BBDEFB)' },
   gelo:    { id:'gelo',    nome:'Gelo',     emoji:'🧊', cor:'#AB47BC', bg:'linear-gradient(135deg,#F3E5F5,#E1BEE7)' },
+  adega:   { id:'adega',   nome:'Adega',    emoji:'🍷', cor:'#C8922A', bg:'linear-gradient(135deg,#0D2B1A,#1E4A30)' },
 }
 
 export const PRODUTOS = [
@@ -32,12 +33,41 @@ export const PRODUTOS = [
   { id:'L03', nome:'Esponja Scotch-Brite',marca:'3M',             descricao:'2un · dupla face',          categoria:'limpeza', preco:5.90,  barcode:'7891040030508', imageOverride:null, imageFallback:'🧽', badge:null,       destaque:false },
   { id:'L04', nome:'Saco de Lixo',       marca:'Veja',            descricao:'rolo 30L · 30 unidades',    categoria:'limpeza', preco:6.90,  barcode:'7896007095112', imageOverride:null, imageFallback:'🗑️',badge:null,       destaque:false },
   { id:'L05', nome:'Pano Multiuso',      marca:'Perfex',          descricao:'pacote 5un · colorido',     categoria:'limpeza', preco:8.90,  barcode:'7896007024106', imageOverride:null, imageFallback:'🧹', badge:null,       destaque:false },
+
+  // ─── ADEGA ────────────────────────────────────────────────────────────────
+  { id:'AD01', nome:'Heineken Long Neck',   marca:'Heineken',     descricao:'330ml · lager premium gelada',   categoria:'adega', preco:7.90,  barcode:'8710791005009', imageOverride:null, imageFallback:'🍺', badge:'GELADA', destaque:true,  adega:true },
+  { id:'AD02', nome:'Heineken Pack 6',      marca:'Heineken',     descricao:'6 × 330ml · long neck',          categoria:'adega', preco:43.90, barcode:null,            imageOverride:null, imageFallback:'🍺', badge:'PACK',   destaque:true,  adega:true },
+  { id:'AD03', nome:'Skol Pack 12',         marca:'Skol',         descricao:'12 × 350ml · lata pilsen',       categoria:'adega', preco:49.90, barcode:null,            imageOverride:null, imageFallback:'🍻', badge:'PACK',   destaque:false, adega:true },
+  { id:'AD04', nome:'Brahma Chopp Lata',    marca:'Brahma',       descricao:'350ml · malte especial',         categoria:'adega', preco:4.90,  barcode:'7891149100484', imageOverride:null, imageFallback:'🍻', badge:'GELADA', destaque:false, adega:true },
+  { id:'AD05', nome:'Monster Energy',       marca:'Monster',      descricao:'473ml · original verde',         categoria:'adega', preco:12.90, barcode:'5060166694945', imageOverride:null, imageFallback:'⚡', badge:'HOT',    destaque:true,  adega:true },
+  { id:'AD06', nome:'Red Bull',             marca:'Red Bull',     descricao:'250ml · classic',                categoria:'adega', preco:14.90, barcode:'9002490200337', imageOverride:null, imageFallback:'🐂', badge:'HOT',    destaque:false, adega:true },
+  { id:'AD07', nome:'Vinho Pérgola Tinto',  marca:'Pérgola',      descricao:'750ml · suave e encorpado',      categoria:'adega', preco:29.90, barcode:null,            imageOverride:null, imageFallback:'🍷', badge:null,     destaque:true,  adega:true },
+  { id:'AD08', nome:'Vodka Smirnoff',       marca:'Smirnoff',     descricao:'600ml · original premium',       categoria:'adega', preco:39.90, barcode:null,            imageOverride:null, imageFallback:'🥃', badge:'HOT',    destaque:false, adega:true },
+  { id:'AD09', nome:"Jack Daniel's",        marca:"Jack Daniel's", descricao:"375ml · Tennessee Whiskey",     categoria:'adega', preco:79.90, barcode:null,            imageOverride:null, imageFallback:'🥃', badge:null,     destaque:false, adega:true },
+  { id:'AD10', nome:'Cachaça 51',           marca:'51',           descricao:'965ml · pinga tradicional',      categoria:'adega', preco:24.90, barcode:'7896048010012', imageOverride:null, imageFallback:'🍶', badge:null,     destaque:false, adega:true },
+  { id:'AD11', nome:'Gelo 5kg',             marca:'Mercadinho',   descricao:'saco 5kg · moído fino',          categoria:'adega', preco:12.00, barcode:null,            imageOverride:null, imageFallback:'🧊', badge:'ESSENCIAL',destaque:false,adega:false },
+  { id:'AD12', nome:'Combo Cerveja + Gelo', marca:'Carmen',       descricao:'6× Heineken + Gelo 5kg',         categoria:'adega', preco:49.90, barcode:null,            imageOverride:null, imageFallback:'🎉', badge:'HOT',    destaque:true,  adega:true },
 ]
 
-export const formatPreco  = (p) => 'R$ ' + p.toFixed(2).replace('.', ',')
+export const formatPreco     = (p)   => 'R$ ' + p.toFixed(2).replace('.', ',')
 export const getPorCategoria = (cat) => PRODUTOS.filter(p => p.categoria === cat)
 export const getDestaques    = ()    => PRODUTOS.filter(p => p.destaque)
 export const getPorId        = (id)  => PRODUTOS.find(p => p.id === id)
+export const getPorAdega     = ()    => PRODUTOS.filter(p => p.categoria === 'adega')
+
+// Desconto progressivo — aplica-se a produtos com adega:true
+export const getAdegazDiscount = (qty) => {
+  if (qty >= 12) return 0.15
+  if (qty >= 6)  return 0.10
+  if (qty >= 3)  return 0.05
+  return 0
+}
+
+export const DESCONTO_FAIXAS = [
+  { min: 3,  pct: 5  },
+  { min: 6,  pct: 10 },
+  { min: 12, pct: 15 },
+]
 
 // Cache em memória: evita chamadas repetidas à API para o mesmo produto
 const _imgCache = new Map()

@@ -30,7 +30,7 @@ export default function Carrinho() {
       </div>
 
       <div style={{ padding: '8px 16px' }}>
-        {cart.cartItems.map(({ produto, qty }, i) => (
+        {cart.cartItems.map(({ produto, qty, discount, precoUnitario }, i) => (
           <div key={produto.id} className="animate-slide-up" style={{
             background: 'var(--card-bg)',
             marginBottom: 12,
@@ -46,7 +46,12 @@ export default function Carrinho() {
             <div style={{ fontSize: 36, width: 56, height: 56, background: 'rgba(45,90,61,0.05)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{produto.imageFallback}</div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text)', lineHeight: 1.2 }}>{produto.nome}</div>
-              <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600, marginTop: 2 }}>{formatPreco(produto.preco)} cada</div>
+              <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600, marginTop: 2 }}>
+                {discount > 0
+                  ? <><span style={{ textDecoration: 'line-through', marginRight: 4 }}>{formatPreco(produto.preco)}</span><span style={{ color: '#C8922A', fontWeight: 900 }}>{formatPreco(precoUnitario)} (-{Math.round(discount*100)}%)</span></>
+                  : <>{formatPreco(produto.preco)} cada</>
+                }
+              </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 10 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(45,90,61,0.05)', borderRadius: 10, padding: 2 }}>
                   <button onClick={() => cart.set(produto.id, qty - 1)} className="tap-target" style={{ width: 28, height: 28, borderRadius: 8, border: 'none', background: '#fff', color: 'var(--primary)', fontSize: 16, fontWeight: 900, cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>−</button>
@@ -56,7 +61,7 @@ export default function Carrinho() {
               </div>
             </div>
             <div style={{ textAlign: 'right', flexShrink: 0 }}>
-              <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 16, color: 'var(--text)' }}>{formatPreco(produto.preco * qty)}</div>
+              <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 16, color: discount > 0 ? '#C8922A' : 'var(--text)' }}>{formatPreco(precoUnitario * qty)}</div>
             </div>
           </div>
         ))}
@@ -76,6 +81,12 @@ export default function Carrinho() {
             <span style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 700 }}>Subtotal</span>
             <span style={{ fontSize: 13, color: 'var(--text)', fontWeight: 800 }}>{formatPreco(cart.totalPrice)}</span>
           </div>
+          {cart.totalDesconto > 0 && (
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+              <span style={{ fontSize: 13, color: '#C8922A', fontWeight: 700 }}>⚡ Desconto Adega</span>
+              <span style={{ fontSize: 13, color: '#C8922A', fontWeight: 900 }}>-{formatPreco(cart.totalDesconto)}</span>
+            </div>
+          )}
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
             <span style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 700 }}>Taxa de entrega</span>
             <span style={{ fontSize: 13, color: 'var(--primary)', fontWeight: 800 }}>Grátis 🎁</span>
