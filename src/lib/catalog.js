@@ -39,18 +39,40 @@ export const getPorCategoria = (cat) => PRODUTOS.filter(p => p.categoria === cat
 export const getDestaques    = ()    => PRODUTOS.filter(p => p.destaque)
 export const getPorId        = (id)  => PRODUTOS.find(p => p.id === id)
 
-export async function resolveImage(produto) {
-  if (produto.imageOverride) return { type: 'override', url: produto.imageOverride }
-  if (produto.barcode) {
-    try {
-      const r = await fetch(
-        'https://world.openfoodfacts.org/api/v2/product/' + produto.barcode + '.json',
-        { headers: { 'User-Agent': 'MercadinhoCarmen/1.0' } }
-      )
-      const d = await r.json()
-      const url = d?.product?.image_front_url || d?.product?.image_url
-      if (url) return { type: 'off', url }
-    } catch (_) {}
+// Cache em memória: evita chamadas repetidas à API para o mesmo produto
+const _imgCache = new Map()
+
+export function resolveImage(produto) {
+  if (produto.imageOverride) return Promise.resolve({ type: 'override', url: produto.imageOverride })
+
+  const key = produto.barcode || produto.id
+  if (_imgCache.has(key)) return Promise.resolve(_imgCache.get(key))
+
+  // Serializa requisições em andamento para o mesmo barcode (sem double-fetch)
+  const fallback = { type: 'fallback', emoji: produto.imageFallback }
+
+  if (!produto.barcode) {
+    _imgCache.set(key, fallback)
+    return Promise.resolve(fallback)
   }
-  return { type: 'fallback', emoji: produto.imageFallback }
+
+  const promise = fetch(
+    'https://world.openfoodfacts.org/api/v2/product/' + produto.barcode + '.json',
+    { headers: { 'User-Agent': 'MercadinhoCarmen/1.0' } }
+  )
+    .then(r => r.json())
+    .then(d => {
+      const url = d?.product?.image_front_url || d?.product?.image_url
+      const result = url ? { type: 'off', url } : fallback
+      _imgCache.set(key, result)
+      return result
+    })
+    .catch(() => {
+      _imgCache.set(key, fallback)
+      return fallback
+    })
+
+  // Armazena a promise no cache para evitar chamadas paralelas duplicadas
+  _imgCache.set(key, promise)
+  return promise
 }

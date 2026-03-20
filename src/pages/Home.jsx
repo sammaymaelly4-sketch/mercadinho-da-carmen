@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { useCartContext } from '../contexts/CartContext'
 import { getDestaques, getPorCategoria, CATEGORIAS, formatPreco } from '../lib/catalog'
 import ProductCard from '../components/ProductCard'
 
@@ -11,10 +12,10 @@ const FLASH = [
   { label: 'Kit Higiene',      sub: 'R$ 29,90', cor: '#6A1B9A', emoji: '🧴' },
 ]
 
-export default function Home({ cart, onAdd, onRemove }) {
+export default function Home() {
   const nav = useNavigate()
+  const { items, add, remove, totalQty } = useCartContext()
   const destaques = getDestaques()
-  const totalQty = cart ? cart.totalQty : 0
 
   return (
     <div className="screen">
@@ -86,7 +87,7 @@ export default function Home({ cart, onAdd, onRemove }) {
         <div style={{ display: 'flex', gap: 12, overflowX: 'auto', scrollbarWidth: 'none', padding: '4px 0 16px', margin: '0 -16px', paddingLeft: 16, paddingRight: 16, scrollSnapType: 'x mandatory' }}>
           {destaques.map((p, i) => (
             <div key={p.id} style={{ flexShrink: 0, width: 145, scrollSnapAlign: 'start' }}>
-              <ProductCard produto={p} index={i} qty={cart ? (cart.items[p.id] || 0) : 0} onAdd={onAdd} onRemove={onRemove} />
+              <ProductCard produto={p} index={i} qty={items[p.id] || 0} onAdd={add} onRemove={remove} />
             </div>
           ))}
         </div>
@@ -100,13 +101,13 @@ export default function Home({ cart, onAdd, onRemove }) {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           {FLASH.map((f, i) => (
-            <div key={i} className="btn-press" style={{ 
-              background: f.cor, 
-              borderRadius: 'var(--radius)', 
-              padding: '16px', 
-              minHeight: 100, 
-              position: 'relative', 
-              overflow: 'hidden', 
+            <div key={i} className="btn-press" style={{
+              background: f.cor,
+              borderRadius: 'var(--radius)',
+              padding: '16px',
+              minHeight: 100,
+              position: 'relative',
+              overflow: 'hidden',
               cursor: 'pointer',
               boxShadow: `0 8px 16px ${f.cor}33`
             }}>
@@ -126,7 +127,7 @@ export default function Home({ cart, onAdd, onRemove }) {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
           {getPorCategoria('bebidas').slice(0, 4).map((p, i) => (
-            <ProductCard key={p.id} produto={p} index={i + 4} qty={cart ? (cart.items[p.id] || 0) : 0} onAdd={onAdd} onRemove={onRemove} />
+            <ProductCard key={p.id} produto={p} index={i + 4} qty={items[p.id] || 0} onAdd={add} onRemove={remove} />
           ))}
         </div>
       </div>
@@ -135,4 +136,3 @@ export default function Home({ cart, onAdd, onRemove }) {
     </div>
   )
 }
-

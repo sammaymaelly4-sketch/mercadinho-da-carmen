@@ -1,11 +1,13 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { getPorId, CATEGORIAS, formatPreco } from '../lib/catalog'
+import { useCartContext } from '../contexts/CartContext'
 
-export default function Produto({ cart, onAdd, onRemove }) {
+export default function Produto() {
   const { id } = useParams()
   const nav = useNavigate()
+  const { items, add, remove, totalQty } = useCartContext()
   const produto = getPorId(id)
-  const qty = cart ? (cart.items[id] || 0) : 0
+  const qty = items[id] || 0
 
   if (!produto) {
     return (
@@ -25,9 +27,9 @@ export default function Produto({ cart, onAdd, onRemove }) {
         <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 18, color: '#F0E8D8', flex: 1 }}>{cat ? cat.nome : 'Produto'}</div>
         <button onClick={() => nav('/carrinho')} className="btn-press tap-target" style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--accent)', border: 'none', color: '#fff', fontSize: 18, cursor: 'pointer', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           🛒
-          {cart && cart.totalQty > 0 && (
+          {totalQty > 0 && (
             <span className="animate-bounce" style={{ position: 'absolute', top: -3, right: -3, background: '#fff', color: 'var(--accent)', fontSize: '10px', fontWeight: 900, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid var(--accent)' }}>
-              {cart.totalQty}
+              {totalQty}
             </span>
           )}
         </button>
@@ -55,9 +57,9 @@ export default function Produto({ cart, onAdd, onRemove }) {
         <p style={{ fontSize: 14, fontWeight: 800, color: 'var(--text)', marginBottom: 16 }}>Quantidade no pedido</p>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 20, background: 'rgba(45,90,61,0.05)', borderRadius: 16, padding: 4 }}>
-            <button onClick={() => onRemove && onRemove(id)} className="tap-target" style={{ width: 44, height: 44, borderRadius: 12, background: '#fff', border: 'none', fontSize: 24, color: 'var(--primary)', fontWeight: 900, cursor: 'pointer', boxShadow: '0 4px 8px rgba(0,0,0,0.05)' }}>−</button>
+            <button onClick={() => remove(id)} className="tap-target" style={{ width: 44, height: 44, borderRadius: 12, background: '#fff', border: 'none', fontSize: 24, color: 'var(--primary)', fontWeight: 900, cursor: 'pointer', boxShadow: '0 4px 8px rgba(0,0,0,0.05)' }}>−</button>
             <span className="animate-bounce" key={qty} style={{ fontFamily: "'Fredoka One', cursive", fontSize: 24, color: 'var(--text)', minWidth: 30, textAlign: 'center' }}>{qty}</span>
-            <button onClick={() => onAdd && onAdd(id)} className="btn-press tap-target" style={{ width: 44, height: 44, borderRadius: 12, background: 'var(--accent)', border: 'none', fontSize: 24, color: '#fff', fontWeight: 900, cursor: 'pointer', boxShadow: '0 4px 12px rgba(232, 98, 42, 0.3)' }}>+</button>
+            <button onClick={() => add(id)} className="btn-press tap-target" style={{ width: 44, height: 44, borderRadius: 12, background: 'var(--accent)', border: 'none', fontSize: 24, color: '#fff', fontWeight: 900, cursor: 'pointer', boxShadow: '0 4px 12px rgba(232, 98, 42, 0.3)' }}>+</button>
           </div>
           {qty > 0 && (
             <div style={{ textAlign: 'right' }}>
@@ -70,7 +72,7 @@ export default function Produto({ cart, onAdd, onRemove }) {
 
       <div className="animate-slide-up stagger-3" style={{ padding: '32px 20px calc(24px + var(--safe-bottom))' }}>
         <button
-          onClick={() => { if (qty === 0) onAdd && onAdd(id); nav('/carrinho') }}
+          onClick={() => { if (qty === 0) add(id); nav('/carrinho') }}
           className="btn-press"
           style={{ width: '100%', background: 'var(--accent)', border: 'none', borderRadius: 20, padding: '20px', fontFamily: "'Fredoka One', cursive", fontSize: 20, color: '#fff', cursor: 'pointer', boxShadow: '0 10px 30px rgba(232, 98, 42, 0.4)', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 12 }}
         >
@@ -80,4 +82,3 @@ export default function Produto({ cart, onAdd, onRemove }) {
     </div>
   )
 }
-

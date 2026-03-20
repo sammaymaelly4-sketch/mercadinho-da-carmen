@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom'
+import { useCartContext } from '../contexts/CartContext'
 import { formatPreco } from '../lib/catalog'
 
-const TAXA = 5.00
-
-export default function Carrinho({ cart }) {
+export default function Carrinho() {
   const nav = useNavigate()
+  const cart = useCartContext()
 
-  if (!cart || cart.cartItems.length === 0) {
+  if (cart.cartItems.length === 0) {
     return (
       <div className="screen animate-fade-in" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 20, padding: 40, textAlign: 'center' }}>
         <div className="animate-bounce" style={{ fontSize: 80 }}>🛒</div>
@@ -18,8 +18,6 @@ export default function Carrinho({ cart }) {
       </div>
     )
   }
-
-  const total = cart.totalPrice + TAXA
 
   return (
     <div className="screen">
@@ -33,14 +31,14 @@ export default function Carrinho({ cart }) {
 
       <div style={{ padding: '8px 16px' }}>
         {cart.cartItems.map(({ produto, qty }, i) => (
-          <div key={produto.id} className="animate-slide-up" style={{ 
-            background: 'var(--card-bg)', 
-            marginBottom: 12, 
-            borderRadius: 'var(--radius)', 
-            padding: 16, 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: 12, 
+          <div key={produto.id} className="animate-slide-up" style={{
+            background: 'var(--card-bg)',
+            marginBottom: 12,
+            borderRadius: 'var(--radius)',
+            padding: 16,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
             border: '1px solid var(--border)',
             boxShadow: 'var(--shadow)',
             animationDelay: `${i * 0.05}s`
@@ -110,4 +108,3 @@ export default function Carrinho({ cart }) {
     </div>
   )
 }
-

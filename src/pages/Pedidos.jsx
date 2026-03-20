@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 export function Pedidos() {
   return (
     <div className="screen">

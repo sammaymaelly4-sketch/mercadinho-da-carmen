@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { memo, useState, useEffect } from 'react'
 import { resolveImage, formatPreco, CATEGORIAS } from '../lib/catalog'
 
 const BADGE = {
@@ -9,7 +9,7 @@ const BADGE = {
   ESSENCIAL: { bg: '#6A1B9A', label: '✅ ESSENCIAL' },
 }
 
-function ProductImage({ produto }) {
+const ProductImage = memo(function ProductImage({ produto }) {
   const cat = CATEGORIAS[produto.categoria]
   const bg = cat ? cat.bg : 'linear-gradient(135deg,#f5f5f5,#eee)'
   const [state, setState] = useState({ loading: true, url: null, emoji: null })
@@ -53,33 +53,33 @@ function ProductImage({ produto }) {
       {state.emoji}
     </div>
   )
-}
+})
 
-export default function ProductCard({ produto, qty = 0, onAdd, onRemove, index = 0 }) {
+const ProductCard = memo(function ProductCard({ produto, qty = 0, onAdd, onRemove, index = 0 }) {
   const badge = produto.badge ? BADGE[produto.badge] : null
   const staggerClass = `stagger-${(index % 4) + 1}`
 
   return (
-    <div className={`animate-fade-scale ${staggerClass}`} style={{ 
-      background: 'var(--card-bg)', 
-      borderRadius: 'var(--radius)', 
-      overflow: 'hidden', 
-      border: '1px solid var(--border)', 
+    <div className={`animate-fade-scale ${staggerClass}`} style={{
+      background: 'var(--card-bg)',
+      borderRadius: 'var(--radius)',
+      overflow: 'hidden',
+      border: '1px solid var(--border)',
       position: 'relative',
       boxShadow: 'var(--shadow)',
       transition: 'transform 0.2s ease'
     }}>
       {badge && (
-        <div style={{ 
-          position: 'absolute', 
-          top: 8, 
-          left: 8, 
-          background: badge.bg, 
-          color: '#fff', 
-          fontSize: '10px', 
-          fontWeight: 900, 
-          padding: '3px 8px', 
-          borderRadius: 99, 
+        <div style={{
+          position: 'absolute',
+          top: 8,
+          left: 8,
+          background: badge.bg,
+          color: '#fff',
+          fontSize: '10px',
+          fontWeight: 900,
+          padding: '3px 8px',
+          borderRadius: 99,
           zIndex: 2,
           boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
         }}>
@@ -96,42 +96,42 @@ export default function ProductCard({ produto, qty = 0, onAdd, onRemove, index =
         <small style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600, display: 'block', marginBottom: 12, height: '2.4em', overflow: 'hidden' }}>
           {produto.descricao}
         </small>
-        
+
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
           <span style={{ fontFamily: "'Fredoka One', cursive", fontSize: '18px', color: 'var(--accent)' }}>
             {formatPreco(produto.preco)}
           </span>
-          
+
           {qty === 0 ? (
             <button
               onClick={() => onAdd && onAdd(produto.id)}
               className="btn-press tap-target"
-              style={{ 
-                width: 36, 
-                height: 36, 
-                background: 'var(--accent)', 
-                border: 'none', 
-                borderRadius: '12px', 
-                color: '#fff', 
-                fontSize: 22, 
-                cursor: 'pointer', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
+              style={{
+                width: 36,
+                height: 36,
+                background: 'var(--accent)',
+                border: 'none',
+                borderRadius: '12px',
+                color: '#fff',
+                fontSize: 22,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 fontWeight: 900,
                 boxShadow: '0 4px 10px rgba(232, 98, 42, 0.3)'
               }}
             >+</button>
           ) : (
             <div className="animate-bounce" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(45,90,61,0.05)', borderRadius: 12, padding: '2px' }}>
-              <button 
-                onClick={() => onRemove && onRemove(produto.id)} 
+              <button
+                onClick={() => onRemove && onRemove(produto.id)}
                 className="tap-target"
                 style={{ width: 30, height: 30, borderRadius: 10, border: 'none', background: '#fff', color: 'var(--primary)', fontSize: 18, fontWeight: 900, cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}
               >−</button>
               <span style={{ fontSize: 15, fontWeight: 900, color: 'var(--text)', minWidth: 20, textAlign: 'center' }}>{qty}</span>
-              <button 
-                onClick={() => onAdd && onAdd(produto.id)} 
+              <button
+                onClick={() => onAdd && onAdd(produto.id)}
                 className="btn-press tap-target"
                 style={{ width: 30, height: 30, borderRadius: 10, background: 'var(--accent)', border: 'none', color: '#fff', fontSize: 18, fontWeight: 900, cursor: 'pointer', boxShadow: '0 2px 4px rgba(232, 98, 42, 0.2)' }}
               >+</button>
@@ -141,5 +141,6 @@ export default function ProductCard({ produto, qty = 0, onAdd, onRemove, index =
       </div>
     </div>
   )
-}
+})
 
+export default ProductCard

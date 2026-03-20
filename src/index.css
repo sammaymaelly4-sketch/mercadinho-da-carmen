@@ -104,6 +104,31 @@ html, body, #root {
   100% { transform: scale(1); }
 }
 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pop {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeUp {
+  from { transform: translateY(14px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fillBar {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -55%) scale(1);    opacity: 0.6; }
+  50%       { transform: translate(-50%, -55%) scale(1.12); opacity: 1; }
+}
+
 /* Helper Classes */
 .animate-fade-in { animation: fadeIn 0.4s ease-out both; }
 .animate-fade-scale { animation: fadeScaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
