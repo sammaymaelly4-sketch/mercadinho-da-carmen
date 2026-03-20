@@ -1,8 +1,14 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
 import { getPorId, getAdegazDiscount } from '../lib/catalog'
 
 export function useCart() {
-  const [items, setItems] = useState({})
+  const [items, setItems] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('cart') || '{}') } catch { return {} }
+  })
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(items))
+  }, [items])
 
   const add = useCallback((prodId) =>
     setItems(prev => ({ ...prev, [prodId]: (prev[prodId] || 0) + 1 })), [])
