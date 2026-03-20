@@ -18,9 +18,9 @@ export default function Splash() {
         🛒
       </div>
 
-      <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 28, color: '#F0E8D8', textAlign: 'center', lineHeight: 1.1, zIndex: 1, animation: 'fadeUp .6s ease both .5s', opacity: 0 }}>
-        Mercadinho<br />
-        <span style={{ color: '#E8622A' }}>da Carmen</span>
+      <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 28, color: '#FFFFFF', textAlign: 'center', lineHeight: 1.1, zIndex: 1, animation: 'fadeUp .6s ease both .5s', opacity: 0, textShadow: '0 0 10px var(--primary)' }}>
+        Adega<br />
+        <span style={{ color: 'var(--accent)', textShadow: '0 0 10px var(--accent)' }}>da Carmen</span>
       </div>
 
       <div style={{ fontSize: 11, color: '#C4A882', fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase', marginTop: 8, zIndex: 1, animation: 'fadeUp .6s ease both .7s', opacity: 0 }}>

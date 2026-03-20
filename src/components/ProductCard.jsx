@@ -90,7 +90,7 @@ const ProductCard = memo(function ProductCard({ produto, qty = 0, onAdd, onRemov
       <ProductImage produto={produto} />
 
       <div style={{ padding: '12px' }}>
-        <p style={{ fontSize: '14px', fontWeight: 800, color: 'var(--text)', lineHeight: 1.2, marginBottom: 4 }}>
+        <p style={{ fontSize: '14px', fontWeight: 800, color: 'var(--text)', lineHeight: 1.2, marginBottom: 4, textShadow: '0 0 5px rgba(255,255,255,0.3)' }}>
           {produto.nome}
         </p>
         <small style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600, display: 'block', marginBottom: 12, height: '2.4em', overflow: 'hidden' }}>
@@ -98,7 +98,7 @@ const ProductCard = memo(function ProductCard({ produto, qty = 0, onAdd, onRemov
         </small>
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
-          <span style={{ fontFamily: "'Fredoka One', cursive", fontSize: '18px', color: 'var(--accent)' }}>
+          <span style={{ fontFamily: "'Fredoka One', cursive", fontSize: '18px', color: 'var(--primary)', textShadow: '0 0 8px var(--primary)' }}>
             {formatPreco(produto.preco)}
           </span>
 
@@ -109,8 +109,8 @@ const ProductCard = memo(function ProductCard({ produto, qty = 0, onAdd, onRemov
               style={{
                 width: 36,
                 height: 36,
-                background: 'var(--accent)',
-                border: 'none',
+                background: 'var(--primary)',
+                border: '1px solid var(--accent)',
                 borderRadius: '12px',
                 color: '#fff',
                 fontSize: 22,
@@ -119,21 +119,21 @@ const ProductCard = memo(function ProductCard({ produto, qty = 0, onAdd, onRemov
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontWeight: 900,
-                boxShadow: '0 4px 10px rgba(232, 98, 42, 0.3)'
+                boxShadow: '0 4px 10px rgba(255, 0, 127, 0.4)'
               }}
             >+</button>
           ) : (
-            <div className="animate-bounce" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(45,90,61,0.05)', borderRadius: 12, padding: '2px' }}>
+            <div className="animate-bounce" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,0,127,0.1)', borderRadius: 12, padding: '2px', border: '1px solid var(--primary)' }}>
               <button
                 onClick={() => onRemove && onRemove(produto.id)}
                 className="tap-target"
-                style={{ width: 30, height: 30, borderRadius: 10, border: 'none', background: '#fff', color: 'var(--primary)', fontSize: 18, fontWeight: 900, cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}
+                style={{ width: 30, height: 30, borderRadius: 10, border: '1px solid var(--primary)', background: 'var(--bg)', color: 'var(--primary)', fontSize: 18, fontWeight: 900, cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }}
               >−</button>
-              <span style={{ fontSize: 15, fontWeight: 900, color: 'var(--text)', minWidth: 20, textAlign: 'center' }}>{qty}</span>
+              <span style={{ fontSize: 15, fontWeight: 900, color: 'var(--text)', minWidth: 20, textAlign: 'center', textShadow: '0 0 5px var(--accent)' }}>{qty}</span>
               <button
                 onClick={() => onAdd && onAdd(produto.id)}
                 className="btn-press tap-target"
-                style={{ width: 30, height: 30, borderRadius: 10, background: 'var(--accent)', border: 'none', color: '#fff', fontSize: 18, fontWeight: 900, cursor: 'pointer', boxShadow: '0 2px 4px rgba(232, 98, 42, 0.2)' }}
+                style={{ width: 30, height: 30, borderRadius: 10, background: 'var(--primary)', border: '1px solid var(--accent)', color: '#fff', fontSize: 18, fontWeight: 900, cursor: 'pointer', boxShadow: '0 0 8px var(--primary)' }}
               >+</button>
             </div>
           )}

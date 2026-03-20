@@ -10,8 +10,8 @@ export default function Login() {
       <div style={{ background: 'var(--primary-dark)', padding: '40px 20px 32px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle,rgba(196,168,130,.07) 1px,transparent 1px)', backgroundSize: '20px 20px' }} />
         <button onClick={() => nav(-1)} className="btn-press tap-target" style={{ position: 'absolute', top: 16, left: 16, background: 'rgba(255,255,255,.13)', border: 'none', color: '#fff', width: 36, height: 36, borderRadius: '50%', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>←</button>
-        <div className="animate-bounce" style={{ fontFamily: "'Fredoka One', cursive", fontSize: 32, color: '#F0E8D8', zIndex: 1, lineHeight: 1 }}>Mercadinho</div>
-        <div className="animate-bounce stagger-1" style={{ fontFamily: "'Fredoka One', cursive", fontSize: 32, color: 'var(--accent)', zIndex: 1, lineHeight: 1 }}>da Carmen</div>
+        <div className="animate-bounce" style={{ fontFamily: "'Fredoka One', cursive", fontSize: 32, color: '#FFFFFF', zIndex: 1, lineHeight: 1, textShadow: '0 0 10px var(--primary)' }}>Adega</div>
+        <div className="animate-slide-up" style={{ fontSize: 28, color: '#FFFFFF', zIndex: 1, fontWeight: 300, opacity: 0.9, textShadow: '0 0 10px var(--accent)' }}>da Carmen</div>
         <div className="animate-fade-in stagger-2" style={{ fontSize: 12, color: '#C4A882', fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', marginTop: 8, zIndex: 1 }}>Delivery do Bairro</div>
         <div className="animate-bounce stagger-3" style={{ fontSize: 80, margin: '24px 0 16px', zIndex: 1 }}>🛒</div>
         <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 17, color: '#F0E8D8', zIndex: 1 }}>
