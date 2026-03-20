@@ -21,32 +21,32 @@ function getTimeSlot() {
 
 const TIME_CONFIG = {
   morning: {
-    hero: { titulo: 'Bom dia! ☀️', sub: 'Café, pão e leite gelado esperando você.', destaque: '🥛 MERCADO BÁSICO', cor: '#2D5A3D' },
+    hero: { titulo: 'Bom dia! ☀️', sub: 'Onde tem festa a gente chega.', destaque: '🔋 RECARGA NEON', cor: 'var(--primary)' },
     produtos: () => getPorCategoria('higiene').slice(0, 4),
-    sectionLabel: '🥛 Básicos do dia',
+    sectionLabel: '🔋 Básicos do dia',
   },
   afternoon: {
-    hero: { titulo: 'Tarde gostosa 🌤️', sub: 'Salgadinhos e bebidas refrescantes.', destaque: '🍿 SNACKS & BEBIDAS', cor: '#FF7043' },
+    hero: { titulo: 'Tarde Quente 🔥', sub: 'Bebidas trincando e muito gelo.', destaque: '🧊 REFRESCO ABSOLUTO', cor: 'var(--accent)' },
     produtos: () => [...getPorCategoria('snacks').slice(0, 2), ...getPorCategoria('bebidas').slice(0, 2)],
-    sectionLabel: '🍿 Snacks & Refrescos',
+    sectionLabel: '🧊 Bebidas Geladas',
   },
   evening: {
-    hero: { titulo: 'Noite boa 🌙', sub: 'Adega completa e combos incríveis pra você.', destaque: '🍷 ADEGA & COMBOS', cor: '#C8922A' },
+    hero: { titulo: 'Noite Neon 🌙', sub: 'Esquenta, festa ou after? A gente garante.', destaque: '🍷 ADEGA & COMBOS', cor: 'var(--primary)' },
     produtos: () => getPorCategoria('adega').filter(p => p.destaque).slice(0, 4),
     sectionLabel: '🍷 Destaques da Adega',
   },
   weekend: {
-    hero: { titulo: 'Kit Sexta da Carmen 🍺', sub: 'Cerveja gelada, salgadinho e gelo — a festa é aqui!', destaque: '⚡ OFERTA ESPECIAL', cor: '#E8622A' },
+    hero: { titulo: 'Fim de Semana Insano 🚀', sub: 'Vem pro after com os melhores combos.', destaque: '⚡ OFERTA CYBER', cor: 'var(--primary)' },
     produtos: () => getPorCategoria('adega').filter(p => p.destaque).slice(0, 4),
     sectionLabel: '🎉 Especial de Fim de Semana',
   },
 }
 
 const FLASH = [
-  { label: 'Cerveja Pack 12x', sub: '50% OFF',  cor: '#E8622A', emoji: '🍺' },
-  { label: 'Gelo 1kg',         sub: 'R$ 5,00',  cor: '#2D5A3D', emoji: '🧊' },
-  { label: 'Monster + Gelo',   sub: 'Combo',    cor: '#1E3D2A', emoji: '⚡' },
-  { label: 'Kit Higiene',      sub: 'R$ 29,90', cor: '#6A1B9A', emoji: '🧴' },
+  { label: 'Cerveja Pack 12x', sub: '50% OFF',  cor: 'var(--primary)', emoji: '🍺' },
+  { label: 'Gelo 1kg',         sub: 'R$ 5,00',  cor: 'var(--accent-dark, #008080)', emoji: '🧊' },
+  { label: 'Monster + Gelo',   sub: 'Combo',    cor: 'var(--primary-dark)', emoji: '⚡' },
+  { label: 'Kit Higiene',      sub: 'R$ 29,90', cor: 'var(--accent)', emoji: '🧴' },
 ]
 
 export default function Home() {
@@ -62,11 +62,11 @@ export default function Home() {
     <div className="screen">
 
       {/* TOPBAR */}
-      <div className="animate-fade-in" style={{ background: 'var(--primary)', padding: '16px 16px 12px', position: 'sticky', top: 0, zIndex: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+      <div className="animate-fade-in" style={{ background: 'var(--primary)', padding: '16px 16px 12px', position: 'sticky', top: 0, zIndex: 10, boxShadow: '0 4px 12px rgba(255,0,127,0.4)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
           <div>
-            <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: '20px', color: '#F0E8D8' }}>Mercadinho da Carmen</div>
-            <div style={{ fontSize: '10px', color: '#C4A882', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase' }}>📍 Vila São José · Taubaté</div>
+            <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: '20px', color: '#FFFFFF', textShadow: '0 0 8px rgba(255,255,255,0.8)' }}>Adega da Carmen</div>
+            <div style={{ fontSize: '10px', color: 'var(--accent)', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase' }}>📍 Vila São José · Taubaté</div>
           </div>
           <div style={{ display: 'flex', gap: 10 }}>
             <button onClick={() => nav('/perfil')} className="btn-press tap-target" style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,.15)', border: 'none', color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>👤</button>
@@ -87,19 +87,19 @@ export default function Home() {
       </div>
 
       {/* HERO DINÂMICO POR HORÁRIO */}
-      <div className="animate-fade-in stagger-1" style={{ background: 'var(--primary-dark)', padding: '24px 16px 0', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', minHeight: 120, position: 'relative', overflow: 'hidden' }}>
+      <div className="animate-fade-in stagger-1" style={{ background: 'var(--primary-dark)', padding: '24px 16px 0', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', minHeight: 120, position: 'relative', overflow: 'hidden', boxShadow: 'inset 0 0 20px rgba(255, 0, 127, 0.5)' }}>
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 16, background: 'var(--bg)', borderRadius: '16px 16px 0 0' }} />
         <div style={{ zIndex: 1, paddingBottom: 24 }}>
-          <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: '22px', color: '#fff', lineHeight: 1.15, marginBottom: 8 }}>
+          <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: '22px', color: '#fff', lineHeight: 1.15, marginBottom: 8, textShadow: '0 0 10px var(--primary)' }}>
             {tc.hero.titulo}
             <br />
-            <span style={{ color: 'var(--accent)', fontSize: 18 }}>{tc.hero.sub}</span>
+            <span style={{ color: 'var(--accent)', fontSize: 18, textShadow: '0 0 10px var(--accent)' }}>{tc.hero.sub}</span>
           </div>
-          <div style={{ background: tc.hero.cor, color: '#fff', fontSize: '10px', fontWeight: 900, padding: '4px 12px', borderRadius: 99, display: 'inline-block', marginTop: 8, letterSpacing: '.06em' }}>
+          <div style={{ background: tc.hero.cor, color: '#fff', fontSize: '10px', fontWeight: 900, padding: '4px 12px', borderRadius: 99, display: 'inline-block', marginTop: 8, letterSpacing: '.06em', boxShadow: '0 0 10px ' + tc.hero.cor }}>
             {tc.hero.destaque}
           </div>
         </div>
-        <div className="animate-bounce" style={{ fontSize: 64, zIndex: 1, paddingBottom: 12 }}>
+        <div className="animate-bounce" style={{ fontSize: 64, zIndex: 1, paddingBottom: 12, filter: 'drop-shadow(0 0 10px var(--accent))' }}>
           {isWeekend ? '🎉' : isEvening ? '🍷' : '🛵'}
         </div>
       </div>
@@ -111,27 +111,28 @@ export default function Home() {
             onClick={() => nav('/adega')}
             className="btn-press"
             style={{
-              background: 'linear-gradient(135deg, #E8622A, #C8922A)',
+              background: 'linear-gradient(135deg, var(--primary), var(--primary-dark))',
               borderRadius: 20, padding: '20px 20px',
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               cursor: 'pointer',
-              boxShadow: '0 8px 24px rgba(232,98,42,0.4)',
+              boxShadow: '0 8px 24px rgba(255, 0, 127, 0.4)',
               position: 'relative', overflow: 'hidden',
+              border: '1px solid var(--accent)'
             }}
           >
             <div style={{ position: 'absolute', right: -10, top: -10, fontSize: 80, opacity: 0.15, transform: 'rotate(12deg)' }}>🍺</div>
             <div>
-              <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 20, color: '#fff', marginBottom: 4 }}>
-                Kit Sexta da Carmen 🍺
+              <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 20, color: '#fff', marginBottom: 4, textShadow: '0 0 5px #fff' }}>
+                Kit Fim de Semana 🍺
               </div>
               <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.85)', fontWeight: 700 }}>
-                Heineken gelada + salgadinho + gelo
+                Bebida gelada + Salgadinho + Gelo
               </div>
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)', fontWeight: 700, marginTop: 4 }}>
-                A partir de R$ 22,90 · Entrega 20 min
+              <div style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, marginTop: 4 }}>
+                Entrega Neon Rápida
               </div>
             </div>
-            <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 22, color: '#fff', flexShrink: 0 }}>→</div>
+            <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 22, color: '#fff', flexShrink: 0, textShadow: '0 0 5px #fff' }}>→</div>
           </div>
         </div>
       )}
@@ -142,26 +143,26 @@ export default function Home() {
           onClick={() => nav('/adega')}
           className="btn-press"
           style={{
-            background: 'linear-gradient(135deg, #0D2B1A, #1a4530)',
+            background: 'var(--card-bg)',
             borderRadius: 20, padding: '18px 20px',
             display: 'flex', alignItems: 'center', gap: 16,
             cursor: 'pointer',
-            border: '1px solid rgba(200,146,42,0.3)',
-            boxShadow: '0 6px 20px rgba(13,43,26,0.4)',
+            border: '1px solid var(--border)',
+            boxShadow: '0 6px 20px rgba(0,255,255,0.1)',
             position: 'relative', overflow: 'hidden',
           }}
         >
           <div style={{ position: 'absolute', right: -8, top: -8, fontSize: 72, opacity: 0.08 }}>🍷</div>
-          <div style={{ width: 52, height: 52, borderRadius: 16, background: 'rgba(200,146,42,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, flexShrink: 0, border: '1px solid rgba(200,146,42,0.3)' }}>
+          <div style={{ width: 52, height: 52, borderRadius: 16, background: 'rgba(0,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, flexShrink: 0, border: '1px solid var(--accent)' }}>
             🍷
           </div>
           <div style={{ flex: 1, zIndex: 1 }}>
-            <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 17, color: '#F5C842' }}>Adega da Carmen</div>
-            <div style={{ fontSize: 11, color: '#C8922A', fontWeight: 700, marginTop: 2 }}>
-              Cervejas, vinhos, destilados · Desconto até 15%
+            <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 17, color: 'var(--text)', textShadow: '0 0 5px var(--accent)' }}>Adega da Carmen</div>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700, marginTop: 2 }}>
+              A festa completa no seu bolso
             </div>
           </div>
-          <div style={{ fontSize: 20, color: '#C8922A', flexShrink: 0, zIndex: 1 }}>›</div>
+          <div style={{ fontSize: 20, color: 'var(--accent)', flexShrink: 0, zIndex: 1 }}>›</div>
         </div>
       </div>
 

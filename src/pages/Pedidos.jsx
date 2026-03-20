@@ -30,10 +30,10 @@ export function Pedidos() {
   const historico = pedidos.slice(1)
 
   const ETAPAS = [
-    { icon: '✓',  label: 'Pedido confirmado', sub: 'A Carmen já tá separando tudo com carinho. 🧺' },
-    { icon: '✓',  label: 'Preparando',         sub: 'Quase pronto! A Carmen tá embalando seu pedido.' },
-    { icon: '🛵', label: 'A caminho!',          sub: 'Saiu! O entregador da Carmen tá voando até você. 🛵' },
-    { icon: '🏠', label: 'Entregue',            sub: 'Chegou! Bom proveito da Carmen pra você. 🧡' },
+    { icon: '✓',  label: 'Preparando o Gelo', sub: 'A Adega está gelando seus itens' },
+    { icon: '✓',  label: 'A caminho da festa', sub: 'O entregador está pilotando rápido!' },
+    { icon: '🛵', label: 'Na porta!',          sub: 'Prepare o brinde, a festa chegou' },
+    { icon: '🏠', label: 'Entregue',            sub: 'Aproveite a noite! 🥂' },
   ]
 
   if (carregando) {
@@ -48,10 +48,10 @@ export function Pedidos() {
   if (pedidos.length === 0) {
     return (
       <div className="screen animate-fade-in" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 20, padding: 40, textAlign: 'center' }}>
-        <div style={{ fontSize: 80 }}>📦</div>
-        <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 24, color: 'var(--text)' }}>Nenhum pedido ainda</div>
-        <div style={{ fontSize: 14, color: 'var(--text-muted)', fontWeight: 700 }}>Seus pedidos aparecerão aqui após finalizar uma compra</div>
-        <button onClick={() => nav('/home')} className="btn-press" style={{ background: 'var(--accent)', border: 'none', borderRadius: 16, padding: '16px 32px', fontFamily: "'Fredoka One', cursive", fontSize: 18, color: '#fff', cursor: 'pointer', boxShadow: '0 8px 20px rgba(232, 98, 42, 0.3)' }}>
+        <div style={{ fontSize: 80, filter: 'drop-shadow(0 0 10px var(--accent))' }}>📦</div>
+        <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 24, color: 'var(--text)', textShadow: '0 0 5px var(--accent)' }}>Nenhum pedido ainda</div>
+        <div style={{ fontSize: 14, color: 'var(--text-muted)', fontWeight: 700 }}>A festa ainda não começou...</div>
+        <button onClick={() => nav('/home')} className="btn-press" style={{ background: 'var(--primary)', border: '1px solid var(--accent)', borderRadius: 16, padding: '16px 32px', fontFamily: "'Fredoka One', cursive", fontSize: 18, color: '#fff', cursor: 'pointer', boxShadow: '0 8px 20px rgba(255, 0, 127, 0.4)', textShadow: '0 0 5px #fff' }}>
           Ir às compras
         </button>
       </div>
@@ -60,18 +60,18 @@ export function Pedidos() {
 
   return (
     <div className="screen">
-      <div className="animate-fade-in" style={{ background: 'var(--primary)', padding: '16px 16px 14px', position: 'sticky', top: 0, zIndex: 10, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-        <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 20, color: '#F0E8D8' }}>Meus Pedidos</div>
+      <div className="animate-fade-in" style={{ background: 'var(--primary)', padding: '16px 16px 14px', position: 'sticky', top: 0, zIndex: 10, boxShadow: '0 4px 12px rgba(255,0,127,0.4)' }}>
+        <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 20, color: '#FFFFFF', textShadow: '0 0 8px rgba(255,255,255,0.8)' }}>Meus Pedidos</div>
       </div>
 
       {ativo && (
-        <div className="animate-slide-up" style={{ margin: '16px 16px 0', background: 'var(--primary-dark)', borderRadius: 'var(--radius)', overflow: 'hidden', boxShadow: 'var(--shadow-lg)' }}>
-          <div style={{ background: 'var(--primary)', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="animate-slide-up" style={{ margin: '16px 16px 0', background: 'var(--card-bg)', borderRadius: 'var(--radius)', overflow: 'hidden', boxShadow: '0 8px 24px rgba(0, 255, 255, 0.2)', border: '1px solid var(--accent)' }}>
+          <div style={{ background: 'linear-gradient(135deg, var(--primary), var(--primary-dark))', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div>
-              <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: '18px', color: '#F0E8D8' }}>🛵 A caminho!</div>
-              <div style={{ fontSize: '11px', color: '#C4A882', fontWeight: 700, marginTop: 4 }}>{ativo.id} · Vila São José</div>
+              <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: '18px', color: '#FFFFFF', textShadow: '0 0 5px #fff' }}>🛵 A Caminho da Festa</div>
+              <div style={{ fontSize: '11px', color: 'var(--accent)', fontWeight: 700, marginTop: 4 }}>{ativo.id} · O entregador está pilotando rápido!</div>
             </div>
-            <div style={{ background: 'rgba(129,199,132,0.15)', borderRadius: 99, padding: '6px 12px', fontSize: '11px', color: '#81C784', fontWeight: 800 }}>🟢 EM ROTA</div>
+            <div style={{ background: 'rgba(0,255,255,0.2)', borderRadius: 99, padding: '6px 12px', fontSize: '11px', color: 'var(--accent)', fontWeight: 900, border: '1px solid var(--accent)' }}>⚡ EM ROTA</div>
           </div>
 
           <div style={{ padding: '20px 16px' }}>
@@ -81,28 +81,28 @@ export function Pedidos() {
               return (
                 <div key={i} className="animate-fade-in" style={{ animationDelay: `${i * 0.1}s` }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                    <div className={active ? 'animate-bounce' : ''} style={{ width: 32, height: 32, borderRadius: '50%', background: done ? 'var(--primary)' : active ? 'var(--accent)' : 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: '#fff', flexShrink: 0 }}>
+                    <div className={active ? 'animate-bounce' : ''} style={{ width: 32, height: 32, borderRadius: '50%', background: done ? 'var(--primary)' : active ? 'var(--accent)' : 'rgba(255,0,127,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: '#fff', flexShrink: 0, border: active ? '1px solid #fff' : 'none', boxShadow: done || active ? '0 0 10px var(--primary)' : 'none' }}>
                       {s.icon}
                     </div>
                     <div style={{ paddingTop: 6 }}>
-                      <div style={{ fontSize: 13, fontWeight: 800, color: active ? '#fff' : done ? '#C4A882' : 'rgba(255,255,255,0.3)' }}>{s.label}</div>
-                      <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', fontWeight: 600 }}>{s.sub}</div>
+                      <div style={{ fontSize: 13, fontWeight: 800, color: active ? 'var(--accent)' : done ? 'var(--text)' : 'rgba(255,255,255,0.3)', textShadow: active ? '0 0 5px var(--accent)' : 'none' }}>{s.label}</div>
+                      <div style={{ fontSize: 11, color: active ? '#fff' : 'rgba(255,255,255,0.5)', fontWeight: 600 }}>{s.sub}</div>
                     </div>
                   </div>
                   {i < arr.length - 1 && (
-                    <div style={{ width: 2, height: 16, background: done ? 'var(--primary)' : 'rgba(255,255,255,0.1)', marginLeft: 15, marginTop: 4, marginBottom: 4 }} />
+                    <div style={{ width: 2, height: 24, background: done ? 'var(--primary)' : 'rgba(255,0,127,0.2)', marginLeft: 15, marginTop: 4, marginBottom: 4, boxShadow: done ? '0 0 5px var(--primary)' : 'none' }} />
                   )}
                 </div>
               )
             })}
           </div>
 
-          <div style={{ padding: '12px 16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+          <div style={{ padding: '12px 16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px dashed var(--border)' }}>
             <div>
-              <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 22, color: 'var(--accent)' }}>{formatPreco(ativo.total)}</div>
-              <div style={{ fontSize: 11, color: '#C4A882', fontWeight: 700 }}>{ativo.pagamento} · {ativo.itens?.length || 0} {ativo.itens?.length === 1 ? 'item' : 'itens'}</div>
+              <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 22, color: 'var(--accent)', textShadow: '0 0 8px var(--accent)' }}>{formatPreco(ativo.total)}</div>
+              <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700 }}>{ativo.pagamento} · {ativo.itens?.length || 0} {ativo.itens?.length === 1 ? 'item' : 'itens'}</div>
             </div>
-            <div style={{ fontSize: 11, color: '#C4A882', fontWeight: 700 }}>{formatarData(ativo.criadoEm)}</div>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700 }}>{formatarData(ativo.criadoEm)}</div>
           </div>
         </div>
       )}

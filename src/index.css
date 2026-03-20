@@ -1,16 +1,16 @@
 :root {
-  --primary:   #2D5A3D;
-  --primary-light: #3D7A52;
-  --primary-dark: #1E3D2A;
-  --accent:    #E8622A;
-  --accent-light: #FF7D4D;
-  --bg:        #FAF6EE;
-  --card-bg:   #FFFFFF;
-  --text:      #1A2E1F;
-  --text-muted: #6B8A72;
-  --border:    rgba(45, 90, 61, 0.08);
-  --shadow:    0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.1);
+  --primary:   #FF007F; /* Hot Pink */
+  --primary-light: #FF4DA6;
+  --primary-dark: #B30059;
+  --accent:    #00FFFF; /* Cyan */
+  --accent-light: #66FFFF;
+  --bg:        #0D0D14; /* Deep Dark Blue/Black */
+  --card-bg:   #1A1A24; /* Slightly lighter dark */
+  --text:      #FFFFFF;
+  --text-muted: #A0A0B0;
+  --border:    rgba(255, 0, 127, 0.2); /* Neon pink tint */
+  --shadow:    0 4px 12px rgba(255, 0, 127, 0.2); /* Pink glow */
+  --shadow-lg: 0 8px 24px rgba(255, 0, 127, 0.4);
   --radius:    16px;
   --safe-bottom: env(safe-area-inset-bottom);
 }
@@ -28,7 +28,7 @@ html, body, #root {
   overflow: hidden;
   font-family: 'Nunito', sans-serif;
   color: var(--text);
-  background: #e8e0d4; /* Color behind the shell */
+  background: #000000; /* Color behind the shell */
 }
 
 #root {
