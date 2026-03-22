@@ -35,7 +35,7 @@ const ComboCard = memo(function ComboCard({ combo, onAdd }) {
         position: 'absolute', top: 12, right: 12,
         background: 'rgba(0,0,0,0.25)',
         borderRadius: 99, padding: '3px 10px',
-        fontSize: 10, fontWeight: 900,
+        fontSize: 'var(--fs-caption)', fontWeight: 900,
         color: '#fff',
       }}>
         💰 Economize {formatPreco(combo.economia)}
@@ -53,7 +53,7 @@ const ComboCard = memo(function ComboCard({ combo, onAdd }) {
           {combo.nome}
         </div>
         <div style={{
-          fontSize: 11, color: 'rgba(255,255,255,0.8)',
+          fontSize: 'var(--fs-body-sm)', color: 'rgba(243,237,221,0.9)',
           fontWeight: 700, lineHeight: 1.4,
           marginBottom: 12,
         }}>
@@ -63,7 +63,7 @@ const ComboCard = memo(function ComboCard({ combo, onAdd }) {
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 1 }}>
         <div>
-          <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.6)', textDecoration: 'line-through', fontWeight: 700 }}>
+          <div style={{ fontSize: 'var(--fs-caption)', color: 'rgba(243,237,221,0.72)', textDecoration: 'line-through', fontWeight: 700 }}>
             {formatPreco(combo.precoOriginal)}
           </div>
           <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 22, color: '#fff' }}>

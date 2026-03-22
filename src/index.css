@@ -8,6 +8,15 @@
   --card-bg:   #FFFFFF;
   --text:      #1A2E1F;
   --text-muted: #6B8A72;
+  --text-on-dark: #F3EDDD;
+  --text-on-dark-muted: #D8C6A3;
+  --text-on-dark-subtle: #AFCBB9;
+  --text-brand-gold: #E5BC63;
+  --fs-body: 14px;
+  --fs-body-sm: 13px;
+  --fs-caption: 12px;
+  --fs-meta-critical: 12px;
+  --fs-micro-strong: 11px;
   --border:    rgba(45, 90, 61, 0.08);
   --shadow:    0 4px 12px rgba(0, 0, 0, 0.05);
   --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.1);
@@ -27,6 +36,8 @@ html, body, #root {
   width: 100%;
   overflow: hidden;
   font-family: 'Nunito', sans-serif;
+  font-size: var(--fs-body);
+  line-height: 1.45;
   color: var(--text);
   background: #e8e0d4; /* Color behind the shell */
 }
@@ -153,4 +164,3 @@ html, body, #root {
   min-width: 44px;
   min-height: 44px;
 }
-

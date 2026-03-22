@@ -76,7 +76,7 @@ const ProductCard = memo(function ProductCard({ produto, qty = 0, onAdd, onRemov
           left: 8,
           background: badge.bg,
           color: '#fff',
-          fontSize: '10px',
+          fontSize: 'var(--fs-caption)',
           fontWeight: 900,
           padding: '3px 8px',
           borderRadius: 99,
@@ -93,7 +93,7 @@ const ProductCard = memo(function ProductCard({ produto, qty = 0, onAdd, onRemov
         <p style={{ fontSize: '14px', fontWeight: 800, color: 'var(--text)', lineHeight: 1.2, marginBottom: 4 }}>
           {produto.nome}
         </p>
-        <small style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 600, display: 'block', marginBottom: 12, height: '2.4em', overflow: 'hidden' }}>
+        <small style={{ fontSize: 'var(--fs-body-sm)', color: 'var(--text-muted)', fontWeight: 600, display: 'block', marginBottom: 12, height: '2.4em', overflow: 'hidden' }}>
           {produto.descricao}
         </small>
 

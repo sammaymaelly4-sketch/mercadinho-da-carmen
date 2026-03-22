@@ -69,9 +69,9 @@ export function Pedidos() {
           <div style={{ background: 'var(--primary)', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div>
               <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: '18px', color: '#F0E8D8' }}>🛵 A caminho!</div>
-              <div style={{ fontSize: '11px', color: '#C4A882', fontWeight: 700, marginTop: 4 }}>{ativo.id} · Vila São José</div>
+              <div style={{ fontSize: 'var(--fs-body-sm)', color: '#C4A882', fontWeight: 700, marginTop: 4 }}>{ativo.id} · Vila São José</div>
             </div>
-            <div style={{ background: 'rgba(129,199,132,0.15)', borderRadius: 99, padding: '6px 12px', fontSize: '11px', color: '#81C784', fontWeight: 800 }}>🟢 EM ROTA</div>
+            <div style={{ background: 'rgba(129,199,132,0.15)', borderRadius: 99, padding: '6px 12px', fontSize: 'var(--fs-body-sm)', color: '#81C784', fontWeight: 800 }}>🟢 EM ROTA</div>
           </div>
 
           <div style={{ padding: '20px 16px' }}>
@@ -86,7 +86,7 @@ export function Pedidos() {
                     </div>
                     <div style={{ paddingTop: 6 }}>
                       <div style={{ fontSize: 13, fontWeight: 800, color: active ? '#fff' : done ? '#C4A882' : 'rgba(255,255,255,0.3)' }}>{s.label}</div>
-                      <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', fontWeight: 600 }}>{s.sub}</div>
+                      <div style={{ fontSize: 'var(--fs-body-sm)', color: 'rgba(255,255,255,0.35)', fontWeight: 600 }}>{s.sub}</div>
                     </div>
                   </div>
                   {i < arr.length - 1 && (
@@ -100,9 +100,9 @@ export function Pedidos() {
           <div style={{ padding: '12px 16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
             <div>
               <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 22, color: 'var(--accent)' }}>{formatPreco(ativo.total)}</div>
-              <div style={{ fontSize: 11, color: '#C4A882', fontWeight: 700 }}>{ativo.pagamento} · {ativo.itens?.length || 0} {ativo.itens?.length === 1 ? 'item' : 'itens'}</div>
+              <div style={{ fontSize: 'var(--fs-body-sm)', color: '#C4A882', fontWeight: 700 }}>{ativo.pagamento} · {ativo.itens?.length || 0} {ativo.itens?.length === 1 ? 'item' : 'itens'}</div>
             </div>
-            <div style={{ fontSize: 11, color: '#C4A882', fontWeight: 700 }}>{formatarData(ativo.criadoEm)}</div>
+            <div style={{ fontSize: 'var(--fs-body-sm)', color: '#C4A882', fontWeight: 700 }}>{formatarData(ativo.criadoEm)}</div>
           </div>
         </div>
       )}
@@ -114,11 +114,11 @@ export function Pedidos() {
             <div key={p.id} className="btn-press animate-fade-in" style={{ background: 'var(--card-bg)', borderRadius: 'var(--radius)', padding: 16, border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxShadow: 'var(--shadow)', marginBottom: 12, animationDelay: `${i * 0.05}s` }}>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text)' }}>{p.id}</div>
-                <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600, marginTop: 4 }}>
+                <div style={{ fontSize: 'var(--fs-body-sm)', color: 'var(--text-muted)', fontWeight: 600, marginTop: 4 }}>
                   {formatarData(p.criadoEm)} · {p.itens?.length || 0} {p.itens?.length === 1 ? 'item' : 'itens'} · {formatPreco(p.total)}
                 </div>
               </div>
-              <div style={{ background: 'rgba(45,90,61,0.08)', borderRadius: 99, padding: '6px 12px', fontSize: 11, color: 'var(--primary)', fontWeight: 800 }}>✅ Entregue</div>
+              <div style={{ background: 'rgba(45,90,61,0.08)', borderRadius: 99, padding: '6px 12px', fontSize: 'var(--fs-body-sm)', color: 'var(--primary)', fontWeight: 800 }}>✅ Entregue</div>
             </div>
           ))}
         </div>
@@ -138,7 +138,7 @@ export function Perfil() {
           <div className="animate-bounce" style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, boxShadow: '0 4px 12px rgba(232, 98, 42, 0.3)' }}>👤</div>
           <div className="animate-slide-up">
             <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 18, color: '#F0E8D8' }}>Visitante</div>
-            <div style={{ fontSize: 11, color: '#C4A882', fontWeight: 700 }}>Faça login para salvar favoritos</div>
+            <div style={{ fontSize: 'var(--fs-body-sm)', color: '#C4A882', fontWeight: 700 }}>Faça login para salvar favoritos</div>
           </div>
         </div>
       </div>

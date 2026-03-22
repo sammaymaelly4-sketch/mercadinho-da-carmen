@@ -28,7 +28,7 @@ export default function Produto() {
         <button onClick={() => nav('/carrinho')} className="btn-press tap-target" style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--accent)', border: 'none', color: '#fff', fontSize: 18, cursor: 'pointer', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           🛒
           {totalQty > 0 && (
-            <span className="animate-bounce" style={{ position: 'absolute', top: -3, right: -3, background: '#fff', color: 'var(--accent)', fontSize: '10px', fontWeight: 900, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid var(--accent)' }}>
+            <span className="animate-bounce" style={{ position: 'absolute', top: -3, right: -3, background: '#fff', color: 'var(--accent)', fontSize: 'var(--fs-caption)', fontWeight: 900, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid var(--accent)' }}>
               {totalQty}
             </span>
           )}
@@ -48,7 +48,7 @@ export default function Produto() {
           </div>
           <div style={{ textAlign: 'right' }}>
             <p style={{ fontFamily: "'Fredoka One', cursive", fontSize: 32, color: 'var(--accent)' }}>{formatPreco(produto.preco)}</p>
-            <div style={{ background: 'var(--primary)', color: '#fff', fontSize: 10, fontWeight: 900, padding: '4px 8px', borderRadius: 99, display: 'inline-block', marginTop: 8 }}>EM ESTOQUE</div>
+            <div style={{ background: 'var(--primary)', color: '#fff', fontSize: 'var(--fs-caption)', fontWeight: 900, padding: '4px 8px', borderRadius: 99, display: 'inline-block', marginTop: 8 }}>EM ESTOQUE</div>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@ export default function Produto() {
           </div>
           {qty > 0 && (
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700 }}>Total do item</div>
+              <div style={{ fontSize: 'var(--fs-body-sm)', color: 'var(--text-muted)', fontWeight: 700 }}>Total do item</div>
               <div className="animate-fade-in" style={{ fontFamily: "'Fredoka One', cursive", fontSize: 20, color: 'var(--text)' }}>{formatPreco(produto.preco * qty)}</div>
             </div>
           )}

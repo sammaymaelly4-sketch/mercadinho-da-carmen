@@ -17,7 +17,7 @@ export default function Splash() {
         <span style={{ color: '#E8622A' }}>da Carmen</span>
       </div>
 
-      <div style={{ fontSize: 11, color: '#C4A882', fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase', marginTop: 8, zIndex: 1, animation: 'fadeUp .6s ease both .7s', opacity: 0 }}>
+      <div style={{ fontSize: 'var(--fs-body-sm)', color: '#C4A882', fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase', marginTop: 8, zIndex: 1, animation: 'fadeUp .6s ease both .7s', opacity: 0 }}>
         Escolha sua experiência
       </div>
 
@@ -59,7 +59,7 @@ export default function Splash() {
         </button>
       </div>
 
-      <div style={{ position: 'absolute', bottom: 26, fontSize: 10, color: '#6B8A72', fontWeight: 700, letterSpacing: '.08em', zIndex: 1 }}>
+      <div style={{ position: 'absolute', bottom: 26, fontSize: 'var(--fs-caption)', color: '#6B8A72', fontWeight: 700, letterSpacing: '.08em', zIndex: 1 }}>
         📍 Vila São José · Taubaté SP
       </div>
     </div>

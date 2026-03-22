@@ -61,7 +61,7 @@ export default function Carrinho() {
         <button onClick={() => nav(-1)} className="btn-press tap-target" style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.15)', border: 'none', color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>←</button>
         <div style={{ flex: 1 }}>
           <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: '18px', color: '#F0E8D8' }}>Meu Carrinho</div>
-          <div style={{ fontSize: '11px', color: '#C4A882', fontWeight: 700 }}>{cart.totalQty} {cart.totalQty === 1 ? 'item selecionado' : 'itens selecionados'}</div>
+          <div style={{ fontSize: 'var(--fs-body-sm)', color: '#C4A882', fontWeight: 700 }}>{cart.totalQty} {cart.totalQty === 1 ? 'item selecionado' : 'itens selecionados'}</div>
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export default function Carrinho() {
             <div style={{ fontSize: 36, width: 56, height: 56, background: 'rgba(45,90,61,0.05)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{produto.imageFallback}</div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text)', lineHeight: 1.2 }}>{produto.nome}</div>
-              <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600, marginTop: 2 }}>
+              <div style={{ fontSize: 'var(--fs-body-sm)', color: 'var(--text-muted)', fontWeight: 600, marginTop: 2 }}>
                 {discount > 0
                   ? <><span style={{ textDecoration: 'line-through', marginRight: 4 }}>{formatPreco(produto.preco)}</span><span style={{ color: '#C8922A', fontWeight: 900 }}>{formatPreco(precoUnitario)} (-{Math.round(discount*100)}%)</span></>
                   : <>{formatPreco(produto.preco)} cada</>
@@ -108,7 +108,7 @@ export default function Carrinho() {
           <span style={{ fontSize: 24 }}>🛵</span>
           <div>
             <div style={{ fontSize: 13, color: 'var(--primary)', fontWeight: 800 }}>Entrega em até 25 min</div>
-            <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600 }}>Vila São José, Taubaté SP</div>
+            <div style={{ fontSize: 'var(--fs-body-sm)', color: 'var(--text-muted)', fontWeight: 600 }}>Vila São José, Taubaté SP</div>
           </div>
         </div>
 
@@ -139,7 +139,7 @@ export default function Carrinho() {
             {[{ icon: '💚', label: 'Pix' }, { icon: '💳', label: 'Cartão' }, { icon: '💵', label: 'Dinheiro' }].map(p => (
               <div key={p.label} onClick={() => setPagamento(p.label)} className="btn-press" style={{ flex: 1, background: pagamento === p.label ? 'var(--primary)' : 'var(--card-bg)', borderRadius: 14, padding: '12px 8px', textAlign: 'center', border: pagamento === p.label ? 'none' : '1px solid var(--border)', cursor: 'pointer', boxShadow: pagamento === p.label ? '0 4px 12px rgba(45, 90, 61, 0.2)' : 'none' }}>
                 <div style={{ fontSize: 24, marginBottom: 4 }}>{p.icon}</div>
-                <div style={{ fontSize: 11, color: pagamento === p.label ? '#fff' : 'var(--text-muted)', fontWeight: 900 }}>{p.label}</div>
+                <div style={{ fontSize: 'var(--fs-body-sm)', color: pagamento === p.label ? '#fff' : 'var(--text-muted)', fontWeight: 900 }}>{p.label}</div>
               </div>
             ))}
           </div>

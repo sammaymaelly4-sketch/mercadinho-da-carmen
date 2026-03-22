@@ -17,7 +17,7 @@ export default function Login() {
         <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 17, color: '#F0E8D8', zIndex: 1 }}>
           {tab === 'entrar' ? 'Bem-vindo de volta!' : 'Criar conta grátis'}
         </div>
-        <div style={{ fontSize: 10, color: '#C4A882', fontWeight: 700, marginTop: 3, zIndex: 1 }}>
+        <div style={{ fontSize: 'var(--fs-caption)', color: '#C4A882', fontWeight: 700, marginTop: 3, zIndex: 1 }}>
           {tab === 'entrar' ? 'Entre pra ver seus favoritos' : 'Rápido e fácil, 1 minuto'}
         </div>
       </div>
@@ -33,18 +33,18 @@ export default function Login() {
 
         {tab === 'cadastrar' && (
           <div className="animate-fade-in" style={{ marginBottom: 16 }}>
-            <label style={{ display: 'block', fontSize: 11, fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 6 }}>Nome completo</label>
+            <label style={{ display: 'block', fontSize: 'var(--fs-body-sm)', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 6 }}>Nome completo</label>
             <input placeholder="Carmen Silva" style={{ width: '100%', background: '#fff', border: '1.5px solid var(--border)', borderRadius: 14, padding: '14px 16px', fontFamily: "'Nunito', sans-serif", fontSize: 15, fontWeight: 700, color: 'var(--text)', outline: 'none' }} />
           </div>
         )}
 
         <div className="animate-fade-in" style={{ marginBottom: 16 }}>
-          <label style={{ display: 'block', fontSize: 11, fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 6 }}>Telefone ou E-mail</label>
+          <label style={{ display: 'block', fontSize: 'var(--fs-body-sm)', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 6 }}>Telefone ou E-mail</label>
           <input placeholder="(12) 99999-9999" style={{ width: '100%', background: '#fff', border: '1.5px solid var(--border)', borderRadius: 14, padding: '14px 16px', fontFamily: "'Nunito', sans-serif", fontSize: 15, fontWeight: 700, color: 'var(--text)', outline: 'none' }} />
         </div>
 
         <div className="animate-fade-in" style={{ marginBottom: 8 }}>
-          <label style={{ display: 'block', fontSize: 11, fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 6 }}>Senha</label>
+          <label style={{ display: 'block', fontSize: 'var(--fs-body-sm)', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 6 }}>Senha</label>
           <input type="password" placeholder="••••••••" style={{ width: '100%', background: '#fff', border: '1.5px solid var(--border)', borderRadius: 14, padding: '14px 16px', fontFamily: "'Nunito', sans-serif", fontSize: 15, fontWeight: 700, color: 'var(--text)', outline: 'none' }} />
         </div>
 
@@ -74,7 +74,7 @@ export default function Login() {
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 14 }}>
           {['⭐ Favoritos salvos', '📦 Histórico', '🏷️ Cupons', '🔁 Reordenar'].map(c => (
-            <div key={c} style={{ background: 'rgba(45,90,61,.08)', borderRadius: 99, padding: '4px 10px', fontSize: 9, fontWeight: 800, color: '#2D5A3D' }}>{c}</div>
+            <div key={c} style={{ background: 'rgba(45,90,61,.08)', borderRadius: 99, padding: '4px 10px', fontSize: 'var(--fs-caption)', fontWeight: 800, color: '#2D5A3D' }}>{c}</div>
           ))}
         </div>
       </div>
