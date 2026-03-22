@@ -26,7 +26,7 @@ const ProductImage = memo(function ProductImage({ produto }) {
 
   if (state.loading) {
     return (
-      <div style={{ height: 95, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ height: 120, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ width: 24, height: 24, border: '3px solid rgba(0,0,0,.1)', borderTopColor: '#E8622A', borderRadius: '50%', animation: 'spin .8s linear infinite' }} />
       </div>
     )
@@ -34,14 +34,14 @@ const ProductImage = memo(function ProductImage({ produto }) {
 
   if (state.url) {
     return (
-      <div style={{ height: 95, background: bg, overflow: 'hidden' }}>
+      <div style={{ height: 120, background: bg, overflow: 'hidden' }}>
         <img
           src={state.url}
           alt={produto.nome}
           style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 8 }}
           onError={e => {
             e.target.style.display = 'none'
-            e.target.parentElement.innerHTML = `<div style="height:95px;display:flex;align-items:center;justify-content:center;font-size:42px">${produto.imageFallback}</div>`
+            e.target.parentElement.innerHTML = `<div style="height:120px;display:flex;align-items:center;justify-content:center;font-size:48px">${produto.imageFallback}</div>`
           }}
         />
       </div>
@@ -49,7 +49,7 @@ const ProductImage = memo(function ProductImage({ produto }) {
   }
 
   return (
-    <div style={{ height: 95, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 42 }}>
+    <div style={{ height: 120, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 48 }}>
       {state.emoji}
     </div>
   )
@@ -60,14 +60,13 @@ const ProductCard = memo(function ProductCard({ produto, qty = 0, onAdd, onRemov
   const staggerClass = `stagger-${(index % 4) + 1}`
 
   return (
-    <div className={`animate-fade-scale ${staggerClass}`} style={{
+    <div className={`animate-fade-scale card-pressable ${staggerClass}`} style={{
       background: 'var(--card-bg)',
       borderRadius: 'var(--radius)',
       overflow: 'hidden',
       border: '1px solid var(--border)',
       position: 'relative',
       boxShadow: 'var(--shadow)',
-      transition: 'transform 0.2s ease'
     }}>
       {badge && (
         <div style={{
@@ -81,7 +80,7 @@ const ProductCard = memo(function ProductCard({ produto, qty = 0, onAdd, onRemov
           padding: '3px 8px',
           borderRadius: 99,
           zIndex: 2,
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+          boxShadow: '0 2px 4px rgba(0,0,0,0.15)'
         }}>
           {badge.label}
         </div>
@@ -98,7 +97,7 @@ const ProductCard = memo(function ProductCard({ produto, qty = 0, onAdd, onRemov
         </small>
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
-          <span style={{ fontFamily: "'Fredoka One', cursive", fontSize: '18px', color: 'var(--accent)' }}>
+          <span style={{ fontFamily: "'Fredoka One', cursive", fontSize: '20px', color: 'var(--accent)' }}>
             {formatPreco(produto.preco)}
           </span>
 
@@ -107,33 +106,34 @@ const ProductCard = memo(function ProductCard({ produto, qty = 0, onAdd, onRemov
               onClick={() => onAdd && onAdd(produto.id)}
               className="btn-press tap-target"
               style={{
-                width: 36,
-                height: 36,
+                width: 40,
+                height: 40,
                 background: 'var(--accent)',
                 border: 'none',
                 borderRadius: '12px',
                 color: '#fff',
-                fontSize: 22,
+                fontSize: 24,
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontWeight: 900,
-                boxShadow: '0 4px 10px rgba(232, 98, 42, 0.3)'
+                boxShadow: '0 4px 12px rgba(232, 98, 42, 0.35)',
+                flexShrink: 0,
               }}
             >+</button>
           ) : (
-            <div className="animate-bounce" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(45,90,61,0.05)', borderRadius: 12, padding: '2px' }}>
+            <div className="animate-bounce" style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(45,90,61,0.06)', borderRadius: 12, padding: '3px' }}>
               <button
                 onClick={() => onRemove && onRemove(produto.id)}
                 className="tap-target"
-                style={{ width: 30, height: 30, borderRadius: 10, border: 'none', background: '#fff', color: 'var(--primary)', fontSize: 18, fontWeight: 900, cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}
+                style={{ width: 34, height: 34, borderRadius: 10, border: 'none', background: '#fff', color: 'var(--primary)', fontSize: 18, fontWeight: 900, cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.06)' }}
               >−</button>
-              <span style={{ fontSize: 15, fontWeight: 900, color: 'var(--text)', minWidth: 20, textAlign: 'center' }}>{qty}</span>
+              <span key={qty} className="animate-number-flip" style={{ fontSize: 16, fontWeight: 900, color: 'var(--text)', minWidth: 22, textAlign: 'center', display: 'block', overflow: 'hidden' }}>{qty}</span>
               <button
                 onClick={() => onAdd && onAdd(produto.id)}
                 className="btn-press tap-target"
-                style={{ width: 30, height: 30, borderRadius: 10, background: 'var(--accent)', border: 'none', color: '#fff', fontSize: 18, fontWeight: 900, cursor: 'pointer', boxShadow: '0 2px 4px rgba(232, 98, 42, 0.2)' }}
+                style={{ width: 34, height: 34, borderRadius: 10, background: 'var(--accent)', border: 'none', color: '#fff', fontSize: 18, fontWeight: 900, cursor: 'pointer', boxShadow: '0 2px 6px rgba(232, 98, 42, 0.25)' }}
               >+</button>
             </div>
           )}
