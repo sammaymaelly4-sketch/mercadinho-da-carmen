@@ -59,7 +59,7 @@ export default function BottomNav({ cartQty = 0 }) {
                     right: -8, 
                     background: 'var(--accent)', 
                     color: '#fff', 
-                    fontSize: 10, 
+                    fontSize: 'var(--fs-caption)', 
                     fontWeight: 900, 
                     width: 18, 
                     height: 18, 
@@ -76,7 +76,7 @@ export default function BottomNav({ cartQty = 0 }) {
               )}
             </div>
             <span style={{ 
-              fontSize: 10, 
+              fontSize: 'var(--fs-caption)', 
               fontWeight: 800, 
               color: active ? 'var(--accent)' : 'var(--text-muted)', 
               opacity: active ? 1 : 0.7,

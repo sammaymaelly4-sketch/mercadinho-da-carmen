@@ -32,7 +32,7 @@ function NeonBadge({ label }) {
       background: c.bg,
       border: `1px solid ${c.borda}`,
       color: c.texto,
-      fontSize: 9, fontWeight: 900,
+      fontSize: 'var(--fs-caption)', fontWeight: 900,
       padding: '3px 8px', borderRadius: 99,
       letterSpacing: '0.08em',
       textShadow: `0 0 6px ${c.borda}`,
@@ -90,13 +90,13 @@ function ProdutoCard({ produto, qty, onAdd, onRemove, secao }) {
         <div style={{ fontFamily:"'Fredoka One', cursive", fontSize:15, color:'#F0E8D8', lineHeight:1.2, marginBottom:3 }}>
           {produto.nome}
         </div>
-        <div style={{ fontSize:11, color:'#4a7a5a', fontWeight:600 }}>{produto.descricao}</div>
+        <div style={{ fontSize: 'var(--fs-body-sm)', color:'var(--text-on-dark-subtle)', fontWeight:700 }}>{produto.descricao}</div>
       </div>
 
       {/* Desconto ativo */}
       {discount > 0 && (
         <div style={{ display:'inline-flex', alignItems:'center', gap:4, background:'rgba(245,200,66,0.12)', borderRadius:8, padding:'3px 8px', border:'1px solid rgba(245,200,66,0.3)' }}>
-          <span style={{ fontSize:10, color:'#F5C842', fontWeight:900 }}>-{Math.round(discount*100)}% OFF</span>
+          <span style={{ fontSize: 'var(--fs-caption)', color:'#F5C842', fontWeight:900 }}>-{Math.round(discount*100)}% OFF</span>
         </div>
       )}
 
@@ -104,7 +104,7 @@ function ProdutoCard({ produto, qty, onAdd, onRemove, secao }) {
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginTop:2 }}>
         <div>
           {discount > 0 && (
-            <div style={{ fontSize:10, color:'rgba(255,255,255,0.3)', textDecoration:'line-through', lineHeight:1 }}>
+            <div style={{ fontSize: 'var(--fs-caption)', color:'rgba(243,237,221,0.68)', textDecoration:'line-through', lineHeight:1 }}>
               {formatPreco(produto.preco)}
             </div>
           )}
@@ -224,7 +224,7 @@ export default function Adega() {
           }}>
             🍷 Adega da Carmen
           </div>
-          <div style={{ fontSize:10, color:'#C8922A', fontWeight:700, letterSpacing:'.12em', textTransform:'uppercase', marginTop:2 }}>
+          <div style={{ fontSize: 'var(--fs-caption)', color:'var(--text-brand-gold)', fontWeight:800, letterSpacing:'.12em', textTransform:'uppercase', marginTop:2 }}>
             Bebidas · Drinks · Combos
           </div>
         </div>
@@ -246,7 +246,7 @@ export default function Adega() {
             <span style={{
               position:'absolute', top:-4, right:-4,
               background:'#39FF14', color:'#060f08',
-              fontSize:'10px', fontWeight:900,
+              fontSize: 'var(--fs-caption)', fontWeight:900,
               width:18, height:18, borderRadius:'50%',
               display:'flex', alignItems:'center', justifyContent:'center',
               boxShadow:'0 0 10px #39FF14',
@@ -294,7 +294,7 @@ export default function Adega() {
             animation:'neonPulse 2s ease-in-out infinite',
           }}>
             <span style={{ width:7, height:7, borderRadius:'50%', background:'#39FF14', boxShadow:'0 0 6px #39FF14', display:'inline-block' }} />
-            <span style={{ fontSize:10, fontWeight:900, color:'#39FF14', letterSpacing:'.1em' }}>ABERTO AGORA</span>
+            <span style={{ fontSize: 'var(--fs-caption)', fontWeight:900, color:'#39FF14', letterSpacing:'.1em' }}>ABERTO AGORA</span>
           </div>
 
           <div style={{ fontFamily:"'Fredoka One', cursive", fontSize:24, color:'#F0E8D8', lineHeight:1.2, marginBottom:6 }}>
@@ -305,7 +305,7 @@ export default function Adega() {
               animation:'neonFlicker 4s infinite alternate',
             }}>começam aqui.</span>
           </div>
-          <div style={{ fontSize:12, color:'#4a7a5a', fontWeight:600, marginBottom:14 }}>
+          <div style={{ fontSize:12, color:'var(--text-on-dark-muted)', fontWeight:700, marginBottom:14 }}>
             Entrega em até 20 min · Vila São José, Taubaté
           </div>
 
@@ -315,7 +315,7 @@ export default function Adega() {
             border:'1px solid rgba(200,146,42,0.2)',
             borderRadius:12, padding:'10px 14px',
           }}>
-            <div style={{ fontSize:11, color:'#F5C842', fontWeight:900, marginBottom:8, letterSpacing:'.06em' }}>
+            <div style={{ fontSize: 'var(--fs-body-sm)', color:'#F5C842', fontWeight:900, marginBottom:8, letterSpacing:'.06em' }}>
               ⚡ DESCONTO PROGRESSIVO
               {totalAdega > 0 && <span style={{ color:'#39FF14', marginLeft:8, animation:'neonPulse 1.5s infinite' }}>· {totalAdega} itens{desconto > 0 ? ` · ${desconto}% OFF ativo!` : ''}</span>}
             </div>
@@ -331,8 +331,8 @@ export default function Adega() {
                     boxShadow: ativo ? '0 0 10px rgba(245,200,66,0.3)' : 'none',
                     transition:'all 0.4s ease',
                   }}>
-                    <div style={{ fontFamily:"'Fredoka One', cursive", fontSize:16, color: ativo ? '#F5C842' : '#333' }}>{f.pct}%</div>
-                    <div style={{ fontSize:9, color: ativo ? '#C8922A' : '#2a3a2a', fontWeight:800 }}>{f.min}+ un</div>
+                    <div style={{ fontFamily:"'Fredoka One', cursive", fontSize:16, color: ativo ? '#F5C842' : 'rgba(243,237,221,0.72)' }}>{f.pct}%</div>
+                    <div style={{ fontSize: 'var(--fs-caption)', color: ativo ? 'var(--text-brand-gold)' : 'rgba(243,237,221,0.78)', fontWeight:800 }}>{f.min}+ un</div>
                   </div>
                 )
               })}
@@ -357,7 +357,7 @@ export default function Adega() {
               padding:'11px 14px',
               background:'none', border:'none',
               borderBottom: ativa ? `2px solid ${sec.neon}` : '2px solid transparent',
-              color: ativa ? sec.neon : '#2a4a35',
+              color: ativa ? sec.neon : 'rgba(243,237,221,0.82)',
               fontFamily:"'Fredoka One', cursive",
               fontSize:13, cursor:'pointer',
               display:'flex', alignItems:'center', gap:5,
@@ -391,7 +391,7 @@ export default function Adega() {
           }}>
             {secaoObj?.emoji} {secaoObj?.label}
           </span>
-          <span style={{ fontSize:11, color:'#2a4a35', fontWeight:700, marginLeft:'auto' }}>
+          <span style={{ fontSize: 'var(--fs-body-sm)', color:'var(--text-on-dark-muted)', fontWeight:700, marginLeft:'auto' }}>
             {produtosFiltrados.length} itens
           </span>
         </div>
@@ -412,7 +412,7 @@ export default function Adega() {
         {produtosFiltrados.length === 0 && (
           <div style={{ textAlign:'center', padding:'40px 20px' }}>
             <div style={{ fontSize:40, marginBottom:12 }}>🔍</div>
-            <div style={{ fontFamily:"'Fredoka One', cursive", fontSize:16, color:'#2a4a35' }}>
+            <div style={{ fontFamily:"'Fredoka One', cursive", fontSize:16, color:'var(--text-on-dark-muted)' }}>
               Nenhum produto nessa seção
             </div>
           </div>

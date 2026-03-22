@@ -40,7 +40,7 @@ export function Categorias() {
               {c.emoji}
             </div>
             <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: '16px', color: 'var(--text)' }}>{c.nome}</div>
-            <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: 700 }}>{getPorCategoria(c.id).length} produtos</div>
+            <div style={{ fontSize: 'var(--fs-body-sm)', color: 'var(--text-muted)', fontWeight: 700 }}>{getPorCategoria(c.id).length} produtos</div>
           </div>
         ))}
       </div>
@@ -71,7 +71,7 @@ export function CategoriaPage() {
         <button onClick={() => nav('/carrinho')} className="btn-press tap-target" style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--accent)', border: 'none', color: '#fff', fontSize: 18, cursor: 'pointer', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           🛒
           {totalQty > 0 && (
-            <span className="animate-bounce" style={{ position: 'absolute', top: -3, right: -3, background: '#fff', color: 'var(--accent)', fontSize: '10px', fontWeight: 900, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid var(--accent)' }}>
+            <span className="animate-bounce" style={{ position: 'absolute', top: -3, right: -3, background: '#fff', color: 'var(--accent)', fontSize: 'var(--fs-caption)', fontWeight: 900, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid var(--accent)' }}>
               {totalQty}
             </span>
           )}

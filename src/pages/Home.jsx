@@ -66,14 +66,14 @@ export default function Home() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
           <div>
             <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: '20px', color: '#F0E8D8' }}>Mercadinho da Carmen</div>
-            <div style={{ fontSize: '10px', color: '#C4A882', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase' }}>📍 Vila São José · Taubaté</div>
+            <div style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-on-dark-muted)', fontWeight: 800, letterSpacing: '.1em', textTransform: 'uppercase' }}>📍 Vila São José · Taubaté</div>
           </div>
           <div style={{ display: 'flex', gap: 10 }}>
             <button onClick={() => nav('/perfil')} className="btn-press tap-target" style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,.15)', border: 'none', color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>👤</button>
             <button onClick={() => nav('/carrinho')} className="btn-press tap-target" style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--accent)', border: 'none', color: '#fff', fontSize: 18, cursor: 'pointer', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               🛒
               {totalQty > 0 && (
-                <span className="animate-bounce" style={{ position: 'absolute', top: -3, right: -3, background: '#fff', color: 'var(--accent)', fontSize: '10px', fontWeight: 900, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid var(--accent)' }}>
+                <span className="animate-bounce" style={{ position: 'absolute', top: -3, right: -3, background: '#fff', color: 'var(--accent)', fontSize: 'var(--fs-caption)', fontWeight: 900, width: 18, height: 18, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid var(--accent)' }}>
                   {totalQty}
                 </span>
               )}
@@ -95,7 +95,7 @@ export default function Home() {
             <br />
             <span style={{ color: 'var(--accent)', fontSize: 18 }}>{tc.hero.sub}</span>
           </div>
-          <div style={{ background: tc.hero.cor, color: '#fff', fontSize: '10px', fontWeight: 900, padding: '4px 12px', borderRadius: 99, display: 'inline-block', marginTop: 8, letterSpacing: '.06em' }}>
+          <div style={{ background: tc.hero.cor, color: '#fff', fontSize: 'var(--fs-caption)', fontWeight: 900, padding: '5px 12px', borderRadius: 99, display: 'inline-block', marginTop: 8, letterSpacing: '.06em' }}>
             {tc.hero.destaque}
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function Home() {
               <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.85)', fontWeight: 700 }}>
                 Heineken gelada + salgadinho + gelo
               </div>
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)', fontWeight: 700, marginTop: 4 }}>
+              <div style={{ fontSize: 'var(--fs-body-sm)', color: 'rgba(243,237,221,0.9)', fontWeight: 700, marginTop: 4 }}>
                 A partir de R$ 22,90 · Entrega 20 min
               </div>
             </div>
@@ -157,7 +157,7 @@ export default function Home() {
           </div>
           <div style={{ flex: 1, zIndex: 1 }}>
             <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 17, color: '#F5C842' }}>Adega da Carmen</div>
-            <div style={{ fontSize: 11, color: '#C8922A', fontWeight: 700, marginTop: 2 }}>
+            <div style={{ fontSize: 'var(--fs-body-sm)', color: 'var(--text-brand-gold)', fontWeight: 800, marginTop: 2 }}>
               Cervejas, vinhos, destilados · Desconto até 15%
             </div>
           </div>
@@ -175,7 +175,7 @@ export default function Home() {
                 <div style={{ width: 64, height: 64, borderRadius: '20px', background: c.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, border: '2px solid ' + c.cor + '22', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
                   {c.emoji}
                 </div>
-                <span style={{ fontSize: '11px', fontWeight: 800, color: 'var(--text)' }}>{c.nome}</span>
+                <span style={{ fontSize: 'var(--fs-body-sm)', fontWeight: 800, color: 'var(--text)' }}>{c.nome}</span>
               </div>
             )
           })}
@@ -237,7 +237,7 @@ export default function Home() {
               minHeight: 100, position: 'relative', overflow: 'hidden', cursor: 'pointer',
               boxShadow: `0 8px 16px ${f.cor}33`
             }}>
-              <div style={{ fontSize: '10px', fontWeight: 900, color: 'rgba(255,255,255,0.8)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '.06em' }}>{f.label}</div>
+              <div style={{ fontSize: 'var(--fs-caption)', fontWeight: 900, color: 'rgba(243,237,221,0.92)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '.06em' }}>{f.label}</div>
               <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: '20px', color: '#fff' }}>{f.sub}</div>
               <div style={{ position: 'absolute', right: -10, bottom: -10, fontSize: 64, opacity: 0.2, transform: 'rotate(-15deg)' }}>{f.emoji}</div>
             </div>

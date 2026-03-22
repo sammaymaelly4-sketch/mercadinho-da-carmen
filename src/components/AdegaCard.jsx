@@ -42,7 +42,7 @@ const AdegaCard = memo(function AdegaCard({ produto, qty = 0, onAdd, onRemove, i
           background: badgeCor.bg,
           border: `1px solid ${badgeCor.borda}`,
           color: badgeCor.texto,
-          fontSize: 9, fontWeight: 900,
+          fontSize: 'var(--fs-caption)', fontWeight: 900,
           padding: '3px 8px', borderRadius: 99, zIndex: 2,
           letterSpacing: '.06em',
           textShadow: `0 0 6px ${badgeCor.borda}`,
@@ -68,7 +68,7 @@ const AdegaCard = memo(function AdegaCard({ produto, qty = 0, onAdd, onRemove, i
         <p style={{ fontSize: 13, fontWeight: 800, color: '#F0E8D8', lineHeight: 1.2, marginBottom: 2 }}>
           {produto.nome}
         </p>
-        <small style={{ fontSize: 10, color: '#4a7a5a', fontWeight: 700, display: 'block', marginBottom: 8 }}>
+        <small style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-on-dark-subtle)', fontWeight: 700, display: 'block', marginBottom: 8 }}>
           {produto.descricao}
         </small>
 
@@ -78,7 +78,7 @@ const AdegaCard = memo(function AdegaCard({ produto, qty = 0, onAdd, onRemove, i
             padding: '3px 8px', marginBottom: 6, display: 'inline-block',
             border: '1px solid rgba(245,200,66,0.3)',
           }}>
-            <span style={{ fontSize: 10, color: '#F5C842', fontWeight: 900 }}>
+            <span style={{ fontSize: 'var(--fs-caption)', color: '#F5C842', fontWeight: 900 }}>
               -{Math.round(discount * 100)}% OFF
             </span>
           </div>
@@ -86,7 +86,7 @@ const AdegaCard = memo(function AdegaCard({ produto, qty = 0, onAdd, onRemove, i
 
         {proxFaixa && qty > 0 && (
           <div style={{ marginBottom: 6 }}>
-            <span style={{ fontSize: 9, color: 'rgba(200,146,42,0.6)', fontWeight: 700 }}>
+            <span style={{ fontSize: 'var(--fs-caption)', color: 'var(--text-brand-gold)', fontWeight: 800 }}>
               +{proxFaixa.min - qty} un → {proxFaixa.pct}% OFF
             </span>
           </div>
@@ -95,7 +95,7 @@ const AdegaCard = memo(function AdegaCard({ produto, qty = 0, onAdd, onRemove, i
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
             {discount > 0 && (
-              <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.25)', textDecoration: 'line-through', display: 'block', lineHeight: 1 }}>
+              <span style={{ fontSize: 'var(--fs-caption)', color: 'rgba(243,237,221,0.68)', textDecoration: 'line-through', display: 'block', lineHeight: 1 }}>
                 {formatPreco(produto.preco)}
               </span>
             )}
