@@ -123,7 +123,6 @@ export function Pedidos() {
           ))}
         </div>
       )}
-      <div style={{ height: 32 }} />
     </div>
   )
 }

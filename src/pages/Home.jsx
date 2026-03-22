@@ -245,7 +245,6 @@ export default function Home() {
         </div>
       </div>
 
-      <div style={{ height: 32 }} />
     </div>
   )
 }
