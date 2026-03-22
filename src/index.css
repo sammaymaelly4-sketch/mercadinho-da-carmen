@@ -22,7 +22,14 @@
   --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.1);
   --radius:    16px;
   --safe-bottom: env(safe-area-inset-bottom);
+  --app-shell-max-width: 480px;
+  --app-shell-gutter: 16px;
+  --bottom-nav-height: 64px;
+  --bottom-nav-space: calc(var(--bottom-nav-height) + var(--safe-bottom) + 8px);
+  --screen-base-bottom-space: 20px;
+  --floating-ui-space: 0px;
 }
+
 
 *, *::before, *::after { 
   box-sizing: border-box; 
@@ -32,9 +39,8 @@
 }
 
 html, body, #root {
-  height: 100%;
+  min-height: 100%;
   width: 100%;
-  overflow: hidden;
   font-family: 'Nunito', sans-serif;
   font-size: var(--fs-body);
   line-height: 1.45;
@@ -42,15 +48,26 @@ html, body, #root {
   background: #e8e0d4; /* Color behind the shell */
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-y: auto;
+}
+
 #root {
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  padding: 0;
 }
 
 .app-shell {
   width: 100%;
-  max-width: 480px;
+  max-width: var(--app-shell-max-width);
+  min-height: 100dvh;
   height: 100dvh;
   background: var(--bg);
   display: flex;
@@ -66,7 +83,60 @@ html, body, #root {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding-bottom: 20px; /* Base padding */
+  --floating-ui-space: 0px;
+  padding-bottom: calc(var(--screen-base-bottom-space) + var(--bottom-nav-space) + var(--floating-ui-space));
+}
+
+.screen--no-nav {
+  padding-bottom: var(--screen-base-bottom-space);
+}
+
+.screen--floating-ui {
+  --floating-ui-space: 88px;
+}
+
+.floating-cart-bar {
+  position: fixed;
+  bottom: calc(var(--bottom-nav-space) + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(440px, calc(100vw - (var(--app-shell-gutter) * 2)));
+  z-index: 50;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --app-shell-max-width: 960px;
+    --app-shell-gutter: 24px;
+  }
+
+  #root {
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .app-shell {
+    width: 100%;
+    max-width: none;
+    min-height: 100dvh;
+    height: 100dvh;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .floating-cart-bar {
+    width: min(700px, calc(100vw - (var(--app-shell-gutter) * 2)));
+  }
+}
+
+@media (min-width: 1180px) {
+  :root {
+    --app-shell-gutter: 36px;
+  }
+
+  .floating-cart-bar {
+    width: min(860px, calc(100vw - (var(--app-shell-gutter) * 2)));
+  }
 }
 
 .screen::-webkit-scrollbar { display: none; }

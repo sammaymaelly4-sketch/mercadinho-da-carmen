@@ -165,7 +165,7 @@ export default function Adega() {
   const desconto = totalAdega >= 12 ? 15 : totalAdega >= 6 ? 10 : totalAdega >= 3 ? 5 : 0
 
   return (
-    <div className="screen" style={{ background:'#060f08' }}>
+    <div className="screen screen--floating-ui" style={{ background:'#060f08' }}>
 
       {/* ── Animações neon globais ─────────────────────────────────────── */}
       <style>{`
@@ -374,7 +374,7 @@ export default function Adega() {
       </div>
 
       {/* ── GRID DE PRODUTOS ──────────────────────────────────────────── */}
-      <div style={{ padding:'16px 14px 110px' }}>
+      <div style={{ padding:'16px 14px 0' }}>
 
         {/* Título da seção */}
         <div style={{ marginBottom:14, display:'flex', alignItems:'center', gap:10 }}>
@@ -421,13 +421,7 @@ export default function Adega() {
 
       {/* ── BARRA FLUTUANTE DO CARRINHO ───────────────────────────────── */}
       {totalQty > 0 && (
-        <div style={{
-          position:'fixed',
-          bottom:'calc(60px + env(safe-area-inset-bottom) + 8px)',
-          left:'50%', transform:'translateX(-50%)',
-          width:'min(440px, calc(100vw - 32px))',
-          zIndex:50,
-        }}>
+        <div className="floating-cart-bar">
           <button onClick={() => nav('/carrinho')} className="btn-press" style={{
             width:'100%',
             background:'linear-gradient(135deg,#C8922A,#F5C842)',
