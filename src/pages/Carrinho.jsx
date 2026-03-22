@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { useCartContext } from '../contexts/CartContext'
 import { formatPreco } from '../lib/catalog'
 import { salvarPedido } from '../lib/pedidosService'
+import ScreenHeader from '../components/ScreenHeader'
+import IconCircleButton from '../components/IconCircleButton'
+import CardSurface from '../components/CardSurface'
+import PrimaryButton from '../components/PrimaryButton'
+import SectionTitle from '../components/SectionTitle'
 
 function validarCarrinho(cartItems, totalPrice) {
   const erros = []
@@ -29,13 +34,11 @@ export default function Carrinho() {
     setEnviando(true)
     const pedido = {
       id: `MC-${Date.now()}`,
-      itens: cart.cartItems.map(({ produto, qty, precoUnitario }) => ({
-        id: produto.id, nome: produto.nome, qty, precoUnitario
-      })),
+      itens: cart.cartItems.map(({ produto, qty, precoUnitario }) => ({ id: produto.id, nome: produto.nome, qty, precoUnitario })),
       total: cart.totalPrice,
       pagamento,
       status: 'confirmado',
-      criadoEm: new Date().toISOString()
+      criadoEm: new Date().toISOString(),
     }
     await salvarPedido(pedido)
     cart.clear()
@@ -48,43 +51,34 @@ export default function Carrinho() {
         <div className="animate-bounce" style={{ fontSize: 80 }}>🛒</div>
         <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 24, color: 'var(--text)' }}>Carrinho vazio</div>
         <div style={{ fontSize: 14, color: 'var(--text-muted)', fontWeight: 700 }}>Adicione produtos para continuar suas compras</div>
-        <button onClick={() => nav('/home')} className="btn-press" style={{ background: 'var(--accent)', border: 'none', borderRadius: 16, padding: '16px 32px', fontFamily: "'Fredoka One', cursive", fontSize: 18, color: '#fff', cursor: 'pointer', boxShadow: '0 8px 20px rgba(232, 98, 42, 0.3)' }}>
+        <PrimaryButton onClick={() => nav('/home')} style={{ maxWidth: 220, borderRadius: 16, padding: '16px 32px' }}>
           Ver produtos
-        </button>
+        </PrimaryButton>
       </div>
     )
   }
 
   return (
     <div className="screen">
-      <div className="animate-fade-in" style={{ background: 'var(--primary)', padding: '16px 16px 14px', position: 'sticky', top: 0, zIndex: 10, display: 'flex', alignItems: 'center', gap: 12, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-        <button onClick={() => nav(-1)} className="btn-press tap-target" style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.15)', border: 'none', color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>←</button>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: '18px', color: '#F0E8D8' }}>Meu Carrinho</div>
-          <div style={{ fontSize: '11px', color: '#C4A882', fontWeight: 700 }}>{cart.totalQty} {cart.totalQty === 1 ? 'item selecionado' : 'itens selecionados'}</div>
-        </div>
-      </div>
+      <ScreenHeader
+        left={<IconCircleButton onClick={() => nav(-1)}>←</IconCircleButton>}
+        title="Meu Carrinho"
+        subtitle={`${cart.totalQty} ${cart.totalQty === 1 ? 'item selecionado' : 'itens selecionados'}`}
+      />
 
       <div style={{ padding: '8px 16px' }}>
         {cart.cartItems.map(({ produto, qty, discount, precoUnitario }, i) => (
-          <div key={produto.id} className="animate-slide-up" style={{
-            background: 'var(--card-bg)',
-            marginBottom: 12,
-            borderRadius: 'var(--radius)',
-            padding: 16,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 12,
-            border: '1px solid var(--border)',
-            boxShadow: 'var(--shadow)',
-            animationDelay: `${i * 0.05}s`
-          }}>
+          <CardSurface
+            key={produto.id}
+            className="animate-slide-up"
+            style={{ marginBottom: 12, padding: 16, display: 'flex', alignItems: 'center', gap: 12, animationDelay: `${i * 0.05}s` }}
+          >
             <div style={{ fontSize: 36, width: 56, height: 56, background: 'rgba(45,90,61,0.05)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{produto.imageFallback}</div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text)', lineHeight: 1.2 }}>{produto.nome}</div>
               <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 600, marginTop: 2 }}>
                 {discount > 0
-                  ? <><span style={{ textDecoration: 'line-through', marginRight: 4 }}>{formatPreco(produto.preco)}</span><span style={{ color: '#C8922A', fontWeight: 900 }}>{formatPreco(precoUnitario)} (-{Math.round(discount*100)}%)</span></>
+                  ? <><span style={{ textDecoration: 'line-through', marginRight: 4 }}>{formatPreco(produto.preco)}</span><span style={{ color: '#C8922A', fontWeight: 900 }}>{formatPreco(precoUnitario)} (-{Math.round(discount * 100)}%)</span></>
                   : <>{formatPreco(produto.preco)} cada</>
                 }
               </div>
@@ -99,7 +93,7 @@ export default function Carrinho() {
             <div style={{ textAlign: 'right', flexShrink: 0 }}>
               <div style={{ fontFamily: "'Fredoka One', cursive", fontSize: 16, color: discount > 0 ? '#C8922A' : 'var(--text)' }}>{formatPreco(precoUnitario * qty)}</div>
             </div>
-          </div>
+          </CardSurface>
         ))}
       </div>
 
@@ -112,7 +106,7 @@ export default function Carrinho() {
           </div>
         </div>
 
-        <div style={{ margin: '12px 16px', background: 'var(--card-bg)', borderRadius: 'var(--radius)', padding: 16, border: '1px solid var(--border)', boxShadow: 'var(--shadow)' }}>
+        <CardSurface style={{ margin: '12px 16px', padding: 16 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
             <span style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 700 }}>Subtotal</span>
             <span style={{ fontSize: 13, color: 'var(--text)', fontWeight: 800 }}>{formatPreco(cart.totalPrice)}</span>
@@ -131,30 +125,40 @@ export default function Carrinho() {
             <span style={{ fontFamily: "'Fredoka One', cursive", fontSize: 18, color: 'var(--text)' }}>Total</span>
             <span style={{ fontFamily: "'Fredoka One', cursive", fontSize: 22, color: 'var(--accent)' }}>{formatPreco(cart.totalPrice)}</span>
           </div>
-        </div>
+        </CardSurface>
 
         <div style={{ padding: '8px 16px' }}>
-          <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--text)', marginBottom: 12 }}>💳 Forma de pagamento</div>
-          <div style={{ display: 'flex', gap: 10 }}>
+          <SectionTitle title="💳 Forma de pagamento" style={{ marginBottom: 0 }} />
+          <div style={{ display: 'flex', gap: 10, marginTop: 12 }}>
             {[{ icon: '💚', label: 'Pix' }, { icon: '💳', label: 'Cartão' }, { icon: '💵', label: 'Dinheiro' }].map(p => (
-              <div key={p.label} onClick={() => setPagamento(p.label)} className="btn-press" style={{ flex: 1, background: pagamento === p.label ? 'var(--primary)' : 'var(--card-bg)', borderRadius: 14, padding: '12px 8px', textAlign: 'center', border: pagamento === p.label ? 'none' : '1px solid var(--border)', cursor: 'pointer', boxShadow: pagamento === p.label ? '0 4px 12px rgba(45, 90, 61, 0.2)' : 'none' }}>
+              <CardSurface
+                key={p.label}
+                onClick={() => setPagamento(p.label)}
+                className="btn-press"
+                style={{
+                  flex: 1,
+                  background: pagamento === p.label ? 'var(--primary)' : 'var(--card-bg)',
+                  borderRadius: 14,
+                  padding: '12px 8px',
+                  textAlign: 'center',
+                  border: pagamento === p.label ? 'none' : '1px solid var(--border)',
+                  cursor: 'pointer',
+                  boxShadow: pagamento === p.label ? '0 4px 12px rgba(45, 90, 61, 0.2)' : 'none',
+                }}
+              >
                 <div style={{ fontSize: 24, marginBottom: 4 }}>{p.icon}</div>
                 <div style={{ fontSize: 11, color: pagamento === p.label ? '#fff' : 'var(--text-muted)', fontWeight: 900 }}>{p.label}</div>
-              </div>
+              </CardSurface>
             ))}
           </div>
         </div>
 
         <div style={{ padding: '24px 16px calc(16px + var(--safe-bottom))' }}>
-          {erro && (
-            <div style={{ background: '#FDECEA', border: '1px solid #F44336', borderRadius: 12, padding: '10px 16px', marginBottom: 12, fontSize: 13, color: '#B71C1C', fontWeight: 700 }}>
-              ⚠️ {erro}
-            </div>
-          )}
-          <button onClick={finalizarPedido} disabled={enviando} className="btn-press" style={{ width: '100%', background: enviando ? 'var(--primary)' : 'var(--accent)', border: 'none', borderRadius: 18, padding: 18, fontFamily: "'Fredoka One', cursive", fontSize: 18, color: '#fff', cursor: enviando ? 'not-allowed' : 'pointer', boxShadow: '0 8px 24px rgba(232, 98, 42, 0.4)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', opacity: enviando ? 0.8 : 1 }}>
+          {erro && <div style={{ background: '#FDECEA', border: '1px solid #F44336', borderRadius: 12, padding: '10px 16px', marginBottom: 12, fontSize: 13, color: '#B71C1C', fontWeight: 700 }}>⚠️ {erro}</div>}
+          <PrimaryButton onClick={finalizarPedido} disabled={enviando} variant={enviando ? 'primary' : 'accent'} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span>{enviando ? 'Enviando...' : 'Finalizar Pedido'}</span>
             <span>{formatPreco(cart.totalPrice)}</span>
-          </button>
+          </PrimaryButton>
         </div>
       </div>
     </div>
