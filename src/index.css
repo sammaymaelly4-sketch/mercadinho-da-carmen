@@ -13,6 +13,11 @@
   --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.1);
   --radius:    16px;
   --safe-bottom: env(safe-area-inset-bottom);
+  --motion-duration-short: 160ms;
+  --motion-duration-medium: 280ms;
+  --motion-duration-long: 420ms;
+  --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 *, *::before, *::after { 
@@ -130,10 +135,10 @@ html, body, #root {
 }
 
 /* Helper Classes */
-.animate-fade-in { animation: fadeIn 0.4s ease-out both; }
-.animate-fade-scale { animation: fadeScaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.animate-slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.animate-bounce { animation: bounceIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in { animation: fadeIn var(--motion-duration-medium) var(--motion-ease-standard) both; }
+.animate-fade-scale { animation: fadeScaleIn var(--motion-duration-long) var(--motion-ease-emphasized) both; }
+.animate-slide-up { animation: slideUp var(--motion-duration-long) var(--motion-ease-emphasized) both; }
+.animate-bounce { animation: bounceIn var(--motion-duration-long) var(--motion-ease-emphasized) both; }
 
 .stagger-1 { animation-delay: 0.1s; }
 .stagger-2 { animation-delay: 0.2s; }
@@ -154,3 +159,19 @@ html, body, #root {
   min-height: 44px;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .btn-press:active {
+    animation: none;
+  }
+}

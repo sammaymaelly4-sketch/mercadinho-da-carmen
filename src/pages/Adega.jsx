@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCartContext } from '../contexts/CartContext'
 import { getPorAdega, DESCONTO_FAIXAS, formatPreco, getAdegazDiscount } from '../lib/catalog'
@@ -24,7 +24,31 @@ const BADGE_CORES = {
   NEW:      { bg:'rgba(57,255,20,0.15)',    borda:'#39FF14', texto:'#39FF14'  },
 }
 
-function NeonBadge({ label }) {
+const MOTION = {
+  short: 'var(--motion-duration-short)',
+  medium: 'var(--motion-duration-medium)',
+  long: 'var(--motion-duration-long)',
+  ease: 'var(--motion-ease-standard)',
+  easeEmphasis: 'var(--motion-ease-emphasized)',
+}
+
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(false)
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setReduced(media.matches)
+
+    const updateMotionPreference = (event) => setReduced(event.matches)
+    media.addEventListener('change', updateMotionPreference)
+
+    return () => media.removeEventListener('change', updateMotionPreference)
+  }, [])
+
+  return reduced
+}
+
+function NeonBadge({ label, shouldReduceMotion }) {
   if (!label) return null
   const c = BADGE_CORES[label] || BADGE_CORES.ESSENCIAL
   return (
@@ -37,13 +61,13 @@ function NeonBadge({ label }) {
       letterSpacing: '0.08em',
       textShadow: `0 0 6px ${c.borda}`,
       boxShadow: `0 0 8px ${c.borda}50`,
-      animation: 'neonPulse 2s ease-in-out infinite',
+      animation: shouldReduceMotion ? 'none' : `neonPulse ${MOTION.long} ${MOTION.easeEmphasis} infinite`,
       display: 'inline-block',
     }}>{label}</span>
   )
 }
 
-function ProdutoCard({ produto, qty, onAdd, onRemove, secao }) {
+function ProdutoCard({ produto, qty, onAdd, onRemove, secao, shouldReduceMotion }) {
   const neon = secao?.neon || '#C8922A'
   const glow = secao?.glow || `0 0 8px ${neon}`
   const discount = produto.adega ? getAdegazDiscount(qty) : 0
@@ -57,7 +81,7 @@ function ProdutoCard({ produto, qty, onAdd, onRemove, secao }) {
       boxShadow: qty > 0 ? `0 0 16px ${neon}30, 0 4px 20px rgba(0,0,0,0.5)` : '0 4px 16px rgba(0,0,0,0.4)',
       padding: 14,
       display: 'flex', flexDirection: 'column', gap: 8,
-      transition: 'all 0.3s ease',
+      transition: `all ${MOTION.medium} ${MOTION.ease}`,
       position: 'relative', overflow: 'hidden',
     }}>
       {/* Brilho de fundo quando selecionado */}
@@ -78,11 +102,11 @@ function ProdutoCard({ produto, qty, onAdd, onRemove, secao }) {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: 28,
           boxShadow: qty > 0 ? `0 0 12px ${neon}50` : 'none',
-          transition: 'all 0.3s ease',
+          transition: `all ${MOTION.medium} ${MOTION.ease}`,
         }}>
           {produto.imageFallback}
         </div>
-        <NeonBadge label={produto.badge} />
+        <NeonBadge label={produto.badge} shouldReduceMotion={shouldReduceMotion} />
       </div>
 
       {/* Nome e descrição */}
@@ -112,7 +136,7 @@ function ProdutoCard({ produto, qty, onAdd, onRemove, secao }) {
             fontFamily:"'Fredoka One', cursive", fontSize:17,
             color: neon,
             textShadow: qty > 0 ? `0 0 8px ${neon}` : 'none',
-            transition: 'all 0.3s ease',
+            transition: `all ${MOTION.medium} ${MOTION.ease}`,
           }}>
             {formatPreco(precoFinal)}
           </div>
@@ -157,6 +181,7 @@ export default function Adega() {
   const { items, add, remove, totalQty } = useCartContext()
   const produtos = getPorAdega()
   const [secaoAtiva, setSecaoAtiva] = useState('cervejas')
+  const shouldReduceMotion = useReducedMotion()
 
   const secaoObj = SECOES.find(s => s.id === secaoAtiva)
   const produtosFiltrados = produtos.filter(p => p.secao === secaoAtiva)
@@ -218,8 +243,8 @@ export default function Adega() {
           <div style={{
             fontFamily:"'Fredoka One', cursive", fontSize:22,
             color:'#F5C842',
-            textShadow:'0 0 7px #F5C842, 0 0 18px #F5C842, 0 0 35px #C8922A',
-            animation:'neonSignBlink 5s ease-in-out infinite',
+          textShadow:'0 0 7px #F5C842, 0 0 18px #F5C842, 0 0 35px #C8922A',
+            animation: shouldReduceMotion ? 'none' : `neonSignBlink ${MOTION.long} ${MOTION.easeEmphasis} infinite`,
             lineHeight:1,
           }}>
             🍷 Adega da Carmen
@@ -238,8 +263,8 @@ export default function Adega() {
           position:'relative',
           display:'flex', alignItems:'center', justifyContent:'center',
           boxShadow: totalQty > 0 ? '0 0 16px rgba(245,200,66,0.6)' : 'none',
-          transition:'all 0.3s ease',
-          animation: totalQty > 0 ? 'cartBounce 1.5s ease-in-out infinite' : 'none',
+          transition:`all ${MOTION.medium} ${MOTION.ease}`,
+          animation: totalQty > 0 && !shouldReduceMotion ? `cartBounce ${MOTION.long} ${MOTION.easeEmphasis} infinite` : 'none',
         }}>
           🛒
           {totalQty > 0 && (
@@ -250,7 +275,7 @@ export default function Adega() {
               width:18, height:18, borderRadius:'50%',
               display:'flex', alignItems:'center', justifyContent:'center',
               boxShadow:'0 0 10px #39FF14',
-              animation:'neonPulse 1.2s ease-in-out infinite',
+              animation: shouldReduceMotion ? 'none' : `neonPulse ${MOTION.long} ${MOTION.easeEmphasis} infinite`,
             }}>{totalQty}</span>
           )}
         </button>
@@ -275,13 +300,13 @@ export default function Adega() {
         <div style={{
           position:'absolute', left:0, right:0, height:2,
           background:'linear-gradient(90deg,transparent,rgba(200,146,42,0.25),transparent)',
-          animation:'scanline 5s linear infinite',
+          animation: shouldReduceMotion ? 'none' : `scanline ${MOTION.long} linear infinite`,
           pointerEvents:'none',
         }} />
         {/* Emoji decorativo flutuante */}
         <div style={{
           position:'absolute', right:14, top:10, fontSize:72, opacity:0.1,
-          animation:'floatGlow 4s ease-in-out infinite',
+          animation: shouldReduceMotion ? 'none' : `floatGlow ${MOTION.long} ${MOTION.easeEmphasis} infinite`,
         }}>🍷</div>
 
         <div style={{ position:'relative', zIndex:1 }}>
@@ -291,7 +316,7 @@ export default function Adega() {
             background:'rgba(57,255,20,0.08)',
             border:'1px solid #39FF14',
             borderRadius:99, padding:'4px 12px', marginBottom:12,
-            animation:'neonPulse 2s ease-in-out infinite',
+            animation: shouldReduceMotion ? 'none' : `neonPulse ${MOTION.long} ${MOTION.easeEmphasis} infinite`,
           }}>
             <span style={{ width:7, height:7, borderRadius:'50%', background:'#39FF14', boxShadow:'0 0 6px #39FF14', display:'inline-block' }} />
             <span style={{ fontSize:10, fontWeight:900, color:'#39FF14', letterSpacing:'.1em' }}>ABERTO AGORA</span>
@@ -302,7 +327,7 @@ export default function Adega() {
             <span style={{
               color:'#F5C842',
               textShadow:'0 0 10px #F5C842, 0 0 25px #C8922A',
-              animation:'neonFlicker 4s infinite alternate',
+              animation: shouldReduceMotion ? 'none' : `neonFlicker ${MOTION.long} ${MOTION.ease} infinite alternate`,
             }}>começam aqui.</span>
           </div>
           <div style={{ fontSize:12, color:'#4a7a5a', fontWeight:600, marginBottom:14 }}>
@@ -317,7 +342,7 @@ export default function Adega() {
           }}>
             <div style={{ fontSize:11, color:'#F5C842', fontWeight:900, marginBottom:8, letterSpacing:'.06em' }}>
               ⚡ DESCONTO PROGRESSIVO
-              {totalAdega > 0 && <span style={{ color:'#39FF14', marginLeft:8, animation:'neonPulse 1.5s infinite' }}>· {totalAdega} itens{desconto > 0 ? ` · ${desconto}% OFF ativo!` : ''}</span>}
+              {totalAdega > 0 && <span style={{ color:'#39FF14', marginLeft:8, animation: shouldReduceMotion ? 'none' : `neonPulse ${MOTION.long} ${MOTION.easeEmphasis} infinite` }}>· {totalAdega} itens{desconto > 0 ? ` · ${desconto}% OFF ativo!` : ''}</span>}
             </div>
             <div style={{ display:'flex', gap:6 }}>
               {DESCONTO_FAIXAS.map(f => {
@@ -329,7 +354,7 @@ export default function Adega() {
                     borderRadius:8, padding:'7px 4px', textAlign:'center',
                     border:`1px solid ${ativo ? '#F5C842' : 'rgba(255,255,255,0.06)'}`,
                     boxShadow: ativo ? '0 0 10px rgba(245,200,66,0.3)' : 'none',
-                    transition:'all 0.4s ease',
+                    transition:`all ${MOTION.medium} ${MOTION.ease}`,
                   }}>
                     <div style={{ fontFamily:"'Fredoka One', cursive", fontSize:16, color: ativo ? '#F5C842' : '#333' }}>{f.pct}%</div>
                     <div style={{ fontSize:9, color: ativo ? '#C8922A' : '#2a3a2a', fontWeight:800 }}>{f.min}+ un</div>
@@ -362,9 +387,9 @@ export default function Adega() {
               fontSize:13, cursor:'pointer',
               display:'flex', alignItems:'center', gap:5,
               textShadow: ativa ? sec.glow : 'none',
-              transition:'all 0.25s ease',
+              transition:`all ${MOTION.short} ${MOTION.ease}`,
               whiteSpace:'nowrap',
-              animation: ativa ? 'neonPulse 2s ease-in-out infinite' : 'none',
+              animation: ativa && !shouldReduceMotion ? `neonPulse ${MOTION.long} ${MOTION.easeEmphasis} infinite` : 'none',
             }}>
               <span style={{ fontSize:15 }}>{sec.emoji}</span>
               {sec.label}
@@ -387,7 +412,7 @@ export default function Adega() {
             fontFamily:"'Fredoka One', cursive", fontSize:18,
             color: secaoObj?.neon,
             textShadow: secaoObj?.glow,
-            animation:'neonFlicker 3s infinite alternate',
+            animation: shouldReduceMotion ? 'none' : `neonFlicker ${MOTION.long} ${MOTION.ease} infinite alternate`,
           }}>
             {secaoObj?.emoji} {secaoObj?.label}
           </span>
@@ -403,6 +428,7 @@ export default function Adega() {
               produto={produto}
               qty={items[produto.id] || 0}
               secao={secaoObj}
+              shouldReduceMotion={shouldReduceMotion}
               onAdd={() => add(produto.id)}
               onRemove={() => remove(produto.id)}
             />
@@ -436,7 +462,8 @@ export default function Adega() {
             display:'flex', alignItems:'center', justifyContent:'space-between',
             cursor:'pointer',
             boxShadow:'0 0 24px rgba(245,200,66,0.55), 0 8px 24px rgba(0,0,0,0.5)',
-            animation:'neonPulse 2.5s ease-in-out infinite',
+            transition:`all ${MOTION.medium} ${MOTION.ease}`,
+            animation: shouldReduceMotion ? 'none' : `neonPulse ${MOTION.long} ${MOTION.easeEmphasis} infinite`,
           }}>
             <div style={{ display:'flex', alignItems:'center', gap:10 }}>
               <span style={{
